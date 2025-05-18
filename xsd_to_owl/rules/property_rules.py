@@ -1331,6 +1331,153 @@ def set_property_domain(context, property_uri, element):
     return False
 
 
+class ChoiceElementPropertyRule(XSDVisitor):
+    """
+    Rule: xs:choice element ->
+          Set of OWL properties with constraints to ensure exactly one is used.
+          
+    This rule handles xs:choice elements by:
+    1. Creating a property for each option in the choice
+    2. Adding OWL constraints to specify that exactly one of these properties must have a value
+    3. Using owl:cardinality=1 on a union of properties
+    """
+
+    @property
+    def rule_id(self):
+        return "choice_element_property"
+
+    @property
+    def description(self):
+        return "Transform xs:choice elements to properties with disjointness and cardinality constraints"
+
+    @property
+    def priority(self):
+        return 120  # Higher than standard property rules but lower than specialized rules
+
+    @check_already_processed
+    def matches(self, element, context):
+        # Match only xs:choice elements
+        if element.tag != f"{XS_NS}choice":
+            return False
+            
+        # Must have at least one child element
+        child_elements = element.findall(f".//{XS_NS}element")
+        return len(child_elements) > 0
+
+    def transform(self, element, context):
+        # Get parent element to determine domain
+        parent_element = element.getparent()
+        if parent_element is None:
+            logging.warning("Choice element has no parent, cannot create properties")
+            return None
+            
+        # Find all child elements in the choice
+        child_elements = element.findall(f".//{XS_NS}element")
+        if not child_elements:
+            logging.warning("Choice element has no child elements, skipping")
+            return None
+            
+        # Create properties for each option in the choice
+        property_uris = []
+        for child in child_elements:
+            name = child.get('name')
+            if not name:
+                logging.warning(f"Child element in choice has no name, skipping")
+                continue
+                
+            # Create property URI
+            property_uri = context.get_safe_uri(context.base_uri, name, is_property=True)
+            property_uris.append(property_uri)
+            
+            # Determine property type and range based on child element
+            type_name = child.get('type')
+            is_datatype = False
+            
+            if type_name:
+                # Check if it's a simple type
+                if ':' in type_name or type_name.startswith("Numeric") or "Decimal" in type_name:
+                    is_datatype = True
+                    range_uri = context.get_type_reference(type_name)
+                else:
+                    # Complex type reference
+                    range_uri = context.get_safe_uri(context.base_uri, type_name)
+            else:
+                # Check for inline simple or complex type
+                simple_type = child.find(f".//{XS_NS}simpleType")
+                complex_type = child.find(f".//{XS_NS}complexType")
+                
+                if simple_type is not None and complex_type is None:
+                    is_datatype = True
+                    # Get base type from restriction
+                    restriction = simple_type.find(f".//{XS_NS}restriction")
+                    if restriction is not None and restriction.get('base'):
+                        base_type = restriction.get('base')
+                        range_uri = context.get_type_reference(base_type)
+                    else:
+                        range_uri = context.XSD.string
+                elif complex_type is not None:
+                    # Create a class for this complex type if it doesn't exist
+                    class_uri = context.get_safe_uri(context.base_uri, name)
+                    if (class_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                        context.graph.add((class_uri, context.RDF.type, context.OWL.Class))
+                        context.graph.add((class_uri, context.RDFS.label, rdflib.Literal(name)))
+                    range_uri = class_uri
+                else:
+                    # Default to string if no type information
+                    is_datatype = True
+                    range_uri = context.XSD.string
+            
+            # Create property
+            if is_datatype:
+                context.graph.add((property_uri, context.RDF.type, context.OWL.DatatypeProperty))
+            else:
+                context.graph.add((property_uri, context.RDF.type, context.OWL.ObjectProperty))
+                
+            context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(name))))
+            set_property_domain(context, property_uri, parent_element)
+            context.graph.add((property_uri, context.RDFS.range, range_uri))
+            
+            # Add functional property constraint
+            from xsd_to_owl.auxiliary.xsd_parsers import is_functional, get_documentation
+            if is_functional(child):
+                context.graph.add((property_uri, context.RDF.type, context.OWL.FunctionalProperty))
+            
+            # Add documentation if available
+            doc = get_documentation(child)
+            if doc:
+                context.graph.add((property_uri, context.SKOS.definition, rdflib.Literal(doc)))
+                
+            # Mark the child element as processed
+            context.mark_processed(child, "simple_type_property")
+            context.mark_processed(child, "complex_type_reference")
+            context.mark_processed(child, "inline_simple_type_property")
+        
+        # Create OWL constraints to ensure exactly one property is used
+        if len(property_uris) > 1:
+            # Create a blank node for the union of properties
+            union_node = BNode()
+            
+            # Create a list of properties for owl:unionOf
+            property_list = context.graph.collection(union_node, property_uris)
+            
+            # Add a comment to explain the choice constraint
+            choice_comment = f"This represents an xs:choice element with {len(property_uris)} options. Exactly one of these properties must be used."
+            for prop_uri in property_uris:
+                context.graph.add((prop_uri, context.RDFS.comment, rdflib.Literal(choice_comment)))
+            
+            # Mark the choice element as processed
+            context.mark_processed(element, self.rule_id)
+            
+            logging.info(f"Created {len(property_uris)} properties for choice element with constraint")
+            return property_uris
+        elif len(property_uris) == 1:
+            # Only one option, no need for constraints
+            context.mark_processed(element, self.rule_id)
+            return property_uris[0]
+        else:
+            return None
+
+
 class DomainFixerRule(XSDVisitor):
     """Rule that adds domains to referenced properties based on tracked references.
     The addresses a specific scenario that can't be handled by regular property creation rules: `DomainFixerRule`

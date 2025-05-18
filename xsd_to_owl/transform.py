@@ -311,9 +311,15 @@ def create_taf_cat_transformer(uri_encode_method: str = "underscore") -> XSDtoOW
         OntologyAnnotationRule
     )
     
+    # Import the new ChoiceElementPropertyRule
+    from xsd_to_owl.rules.property_rules import ChoiceElementPropertyRule
+    
     # Register ontology rules
     transformer.register_rule(OntologyHeaderRule(), 'class')  # Run in class phase
     transformer.register_rule(OntologyAnnotationRule(), 'cleanup')  # Run in cleanup phase
+    
+    # Register the ChoiceElementPropertyRule for handling xs:choice elements
+    transformer.register_rule(ChoiceElementPropertyRule(), 'property')
     
     # Add any other TAF CAT specific rules or configurations here
     
