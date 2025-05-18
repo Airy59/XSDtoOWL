@@ -152,6 +152,10 @@ transformer.register_rule(MyCustomRule())
 
 The framework provides a specialized rule for handling xs:choice elements in XSD schemas. The `ChoiceElementPropertyRule` transforms xs:choice elements into a set of OWL properties with constraints to ensure that exactly one of the properties is used.
 
+#### XML Schema xs:choice Semantics
+
+In XML Schema, the xs:choice element specifies that exactly one of the elements contained in the group may appear in the containing element. This creates a mutual exclusivity constraint that must be preserved in the OWL representation.
+
 #### Approaches
 
 The framework supports two approaches for handling xs:choice elements, depending on the types of elements in the choice:
@@ -164,8 +168,11 @@ For xs:choice elements containing elements of simple type or numeric type, the a
 2. All properties share the same domain (the parent class)
 3. Each property has a range corresponding to its type
 4. Comments are added to each property to indicate that it's part of a choice constraint
+5. Unicity constraints are implied through documentation, as OWL does not directly support mutual exclusivity between properties
 
 This approach is particularly well-suited for choices between elements of simple type or numeric type, as it maintains the mutual exclusivity constraint of xs:choice while working within OWL's capabilities.
+
+To enforce the unicity constraint in applications consuming the ontology, additional validation rules would need to be implemented, as standard OWL reasoners cannot enforce the constraint that exactly one of several properties must be used.
 
 ##### Approach 2: For Complex Types
 
@@ -175,8 +182,12 @@ For xs:choice elements containing elements of complex type, a class hierarchy ap
 2. Make all choice options subclasses of that superclass
 3. Create a single object property with the superclass as its range
 4. Each subclass represents one option in the choice
+5. Add owl:disjointWith assertions between all subclasses to enforce mutual exclusivity
+6. Add owl:FunctionalProperty assertion to the object property to enforce that exactly one instance is used
 
-This approach provides a more elegant solution for complex types, as it leverages OWL's class hierarchy to represent the choice constraint.
+This approach provides a more elegant solution for complex types, as it leverages OWL's class hierarchy to represent the choice constraint. The unicity constraint (exactly one choice must be selected) is enforced through the combination of:
+- Disjoint subclasses (ensuring no instance can be of more than one choice type)
+- Functional property (ensuring exactly one instance of the superclass is used)
 
 Example:
 
@@ -184,7 +195,7 @@ Example:
 :PaymentType a owl:Class ;
     rdfs:label "PaymentType" .
 
-:paymentMethod a owl:ObjectProperty ;
+:paymentMethod a owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain :PaymentType ;
     rdfs:range :PaymentType_choice_1 ;
     rdfs:label "paymentMethod" .
@@ -195,15 +206,18 @@ Example:
 
 :CreditCardType a owl:Class ;
     rdfs:subClassOf :PaymentType_choice_1 ;
-    rdfs:label "CreditCardType" .
+    rdfs:label "CreditCardType" ;
+    owl:disjointWith :BankTransferType, :PayPalType .
 
 :BankTransferType a owl:Class ;
     rdfs:subClassOf :PaymentType_choice_1 ;
-    rdfs:label "BankTransferType" .
+    rdfs:label "BankTransferType" ;
+    owl:disjointWith :CreditCardType, :PayPalType .
 
 :PayPalType a owl:Class ;
     rdfs:subClassOf :PaymentType_choice_1 ;
-    rdfs:label "PayPalType" .
+    rdfs:label "PayPalType" ;
+    owl:disjointWith :CreditCardType, :BankTransferType .
 ```
 
 #### Implementation
