@@ -12,6 +12,7 @@ facilitating interoperability between different data ecosystems.
 - Transformation of XSD complex types to OWL classes
 - Conversion of XSD elements to OWL properties
 - Support for XSD enumerations as SKOS concept schemes
+- Handling of xs:choice elements using OWL constraints
 - Customizable transformation rules
 - Extensible architecture for custom transformations
 - Multiple output formats (Turtle, RDF/XML, N3, etc.)
@@ -102,6 +103,7 @@ The framework includes the following default rules:
 3. **AttributeRule**: Transforms XSD attributes into OWL datatype properties.
 4. **EnumerationRule**: Transforms XSD enumerations into SKOS concept schemes.
 5. **SimpleTypeRule**: Transforms XSD simple types into OWL datatypes.
+6. **ChoiceElementPropertyRule**: Transforms XSD choice elements into OWL properties with constraints.
 
 ## Customization
 
@@ -145,6 +147,38 @@ transformer = XSDtoOWLTransformer()
 # Register custom rules
 transformer.register_rule(MyCustomRule())
 ```
+
+### Handling xs:choice Elements
+
+The framework provides a specialized rule for handling xs:choice elements in XSD schemas. The `ChoiceElementPropertyRule` transforms xs:choice elements into a set of OWL properties with constraints to ensure that exactly one of the properties is used.
+
+#### Approach
+
+The approach used for handling xs:choice elements is based on OWL disjointness and cardinality constraints:
+
+1. Each option in the choice is represented as a separate property
+2. All properties share the same domain (the parent class)
+3. Each property has a range corresponding to its type
+4. Comments are added to each property to indicate that it's part of a choice constraint
+
+This approach is particularly well-suited for choices between elements of simple type or numeric type, as it maintains the mutual exclusivity constraint of xs:choice while working within OWL's capabilities.
+
+#### Implementation
+
+To use the xs:choice handling in your transformer:
+
+```python
+from xsd_to_owl import create_default_transformer
+from xsd_to_owl.rules.property_rules import ChoiceElementPropertyRule
+
+# Create a transformer
+transformer = create_default_transformer()
+
+# Register the ChoiceElementPropertyRule
+transformer.register_rule(ChoiceElementPropertyRule(), 'property')
+```
+
+The TAF CAT transformer already includes this rule by default.
 
 ## Examples
 
@@ -223,6 +257,48 @@ Resulting SKOS (Turtle syntax):
     skos:prefLabel "DE" .
 ```
 
+### Transform XSD Choice to OWL Properties with Constraints
+
+XSD:
+
+```xml
+<xs:complexType name="PaymentType">
+    <xs:sequence>
+        <xs:choice>
+            <xs:element name="creditCard" type="CreditCardType"/>
+            <xs:element name="bankTransfer" type="BankTransferType"/>
+            <xs:element name="paypal" type="PayPalType"/>
+        </xs:choice>
+    </xs:sequence>
+</xs:complexType>
+```
+
+Resulting OWL (Turtle syntax):
+
+```turtle
+:PaymentType a owl:Class ;
+    rdfs:label "PaymentType" ;
+    rdfs:comment "Complex type from XSD schema" .
+
+:creditCard a owl:ObjectProperty ;
+    rdfs:domain :PaymentType ;
+    rdfs:range :CreditCardType ;
+    rdfs:label "creditCard" ;
+    rdfs:comment "This represents an xs:choice element with 3 options. Exactly one of these properties must be used." .
+
+:bankTransfer a owl:ObjectProperty ;
+    rdfs:domain :PaymentType ;
+    rdfs:range :BankTransferType ;
+    rdfs:label "bankTransfer" ;
+    rdfs:comment "This represents an xs:choice element with 3 options. Exactly one of these properties must be used." .
+
+:paypal a owl:ObjectProperty ;
+    rdfs:domain :PaymentType ;
+    rdfs:range :PayPalType ;
+    rdfs:label "paypal" ;
+    rdfs:comment "This represents an xs:choice element with 3 options. Exactly one of these properties must be used." .
+```
+
 ## Transformation Rules
 
 The framework applies the following transformation rules:
@@ -236,6 +312,7 @@ The framework applies the following transformation rules:
 | Simple Type   | OWL Datatype                   |
 | Extension     | rdfs:subClassOf relationship   |
 | Restriction   | OWL Restrictions               |
+| Choice        | OWL Properties with constraints|
 
 ## Rule Priority Management
 
