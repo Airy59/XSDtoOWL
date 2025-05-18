@@ -1459,7 +1459,7 @@ class ChoiceElementPropertyRule(XSDVisitor):
             
             # Create a list of properties for owl:unionOf
             # First create a collection of property URIs
-            property_list = rdflib.Collection(context.graph, union_node, property_uris)
+            property_list = context.graph.collection(union_node, property_uris)
             
             # Add a comment to explain the choice constraint
             choice_comment = f"This represents an xs:choice element with {len(property_uris)} options. Exactly one of these properties must be used."
