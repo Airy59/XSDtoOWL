@@ -1,0 +1,12 @@
+# XML/XSD parser:
+lxml>=5.4.0
+
+# Ontology library:
+rdflib>=7.1.4
+# Note: rdflib has a dependency on pyparsing<4,>=2.1.0
+
+# Command-line interface implementation:
+click>=8.2.0
+
+# For handling complex XSD structures, using graph reasoning:
+networkx>=3.4.2

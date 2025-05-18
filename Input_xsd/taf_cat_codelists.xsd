@@ -1,0 +1,4013 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2020 rel. 2 sp1 (x64) (http://www.altova.com) by   (ERA - European Railway Agency) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.era.europa.eu/schemes/TAFTSI/3.5" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://www.era.europa.eu/schemes/TAFTSI/3.5" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.5.1">
+	<xs:annotation>
+		<xs:appinfo>
+			<dcterms:title>TAF TSI - message exchange.</dcterms:title>
+			<dcterms:description>This schema defines code lists for the TAF TSI.</dcterms:description>
+			<dcterms:creator>European Union Agency for Railways. mailto:taf_tsi@era.europa.eu</dcterms:creator>
+			<dcterms:coverage>European Union</dcterms:coverage>
+			<dcterms:created>2013-06-27</dcterms:created>
+			<dcterms:modified>2017-02-23</dcterms:modified>
+			<dcterms:modified>2018-05-31</dcterms:modified>
+			<dcterms:modified>2019-05-31</dcterms:modified>
+			<dcterms:modified>2020-11-25</dcterms:modified>
+			<dcterms:type>text/xml</dcterms:type>
+			<dcterms:subject>Transport, Freigth Transport, Rail</dcterms:subject>
+			<dcterms:identifier>{http://www.era.europa.eu/schemes/TAFTSI}taf_cat_codelists.xsd</dcterms:identifier>
+			<dcterms:language>en</dcterms:language>
+			<dcterms:publisher>ERA European Union Agency for Railways, 120 rue Marc Lefrancq, 59307 Valenciennes Cedex, http://www.era.europa.eu/</dcterms:publisher>
+			<dcterms:rights>Unclassified</dcterms:rights>
+			<dcterms:rightsHolder>European Union Agency for Railways</dcterms:rightsHolder>
+			<dcterms:copyright>ERA 2023</dcterms:copyright>
+			<dcterms:status>Final</dcterms:status>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="AirBrakeType">
+		<xs:annotation>
+			<xs:documentation>Classification of air brake.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>Through pipe</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>G system only</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>P system only</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>G/P combined system</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>No air brake or brake pipe</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Non coded system</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BrakeSpecialCharacteristics">
+		<xs:annotation>
+			<xs:documentation>
+General brake characteristics. The values refer to UIC leaflet 920-13.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>Cast Iron Brake Blocks</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Disc Brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>K-Brake Blocks</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Cast Iron Brake Blocks, single release brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Composite Brake Blocks, single release brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>L-Brake Blocks</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>LL-Brake Blocks</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Unknown or non-coded information</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BrakeType">
+		<xs:annotation>
+			<xs:documentation>Type of braking system.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>G: "Goods" for freight services with slow application and release times</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>P: "Passenger" for passenger and freight services with quick application and release times.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>X: an indication that brake system of the freight wagon out of order (actually / current). Additionally, X cannot be used in Planning.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>R: a subdivision brake position of brake mode "P", for rapid (express) services with high brake performances</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>G+E: brake position G with additional brake=electro-dynamic brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>G+H: brake position G with additional brake=hydro-dynamic brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>P+E: brake position P with additional brake=electro-dynamic brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>P+H: brake position P with additional brake=hydro-dynamic brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>P+Mg: brake position P with additional brake=magnetic track brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>R+E: brake position R with additional brake=electro-dynamic brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>R+H: brake position R with additional brake=hydro-dynamic brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>R+Mg: brake position R with additional brake=magnetic track brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>R+WB: brake position R with additional brake=eddy current brake (German: Wirbelstrombremse)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>R+E+Mg: brake position R with additional brake=electro-dynamic brake and magnetic track brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>R+E+WB: brake position R with additional brake=electro-dynamic brake and eddy current brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BrakingPowerVariationDevice">
+		<xs:annotation>
+			<xs:documentation>Coding in 404-2, chapter 1.8</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>no braked weight variation device</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>empty/loaded manual or automatic device with one changeover weight</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>empty/loaded manual or automatic device with two or three changeover weights</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>linear auto continuous device with indication of maximum braked weight</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>non-codable variation device</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CodeOfCause">
+		<xs:annotation>
+			<xs:documentation>Code of reason for extension</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Completion of formalities required by customs or other administrative authorities (CIM Article 15)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Examination of the consignment (CIM Article11)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Amendment of the contract of carriage (CIM Article 18)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Circumstances preventing carriage (CIM Article 20)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Circumstances preventing delivery (CIM Article21)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Attention to be given to the consignment</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>Rectification of the load following unsatisfactory loading by the consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>Transhipment following unsatisfactory loading by the consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Other causes: ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CombinedTrafficLoadProfile">
+		<xs:annotation>
+			<xs:documentation>This element does refer to combined load units that can be used for Freight Requests only.
+There are two entry options:
+• One option refers to “P” (Semi-trailer/road semi-trailer):
+• The other option refers to “C” (Swap body):
+The RUs may indicate the relevant values if they are familiar with the IMs line profiles. In case there is a path request for a train with combined traffic load, the IM should indicate the possible max. value for all 4 elements (P1, P2, C1, C2). Further information about Combined Traffic Load Profile can be seen in the UIC 596-6 Leaflet.
+</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="P1" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>P1 requires the code in case the gauge of the semi-trailer is less or equal 2500 mm.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="P2" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>P2 requires the code in case the gauge of the semi-trailer is greater than 2500 mm less or equal 2600 mm</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="C1" minOccurs="0">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>C1 requires the code in case the gauge of the swap body is less or equal 2550 mm.</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="C2" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>C2 requires the code in case the gauge of the swap body is greater than 2550 mm less or equal 2600 mm</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConsignmentOrderType">
+		<xs:annotation>
+			<xs:documentation>Preliminary list of messages, by now restricted on different types of consignment orders.	
+			Message types PRN, NACK, ECN, DEL, INFE, INFP, ECOM, ECOD and ECOU are only used in communication within Raildata ECN members.           
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="ECN">
+					<xs:annotation>
+						<xs:documentation>ECN: Electronic consignment note. MessageType will be sent up to the interchange point where the transport is handed over to the next carrier involved in the transport (being ECN capable). </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="NACK">
+					<xs:annotation>
+						<xs:documentation>NotAcknowledged. Message is only sent out by the CDS, in case an ECN is received and the next carrier who is to receive this ECN is not ECN-capable</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="PRN">
+					<xs:annotation>
+						<xs:documentation>At the beginning of an ECN transport the shipping carrier sends the prior notification as preannouncement to all participating carriers (as far as they are able to process an ECN)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="INFE">
+					<xs:annotation>
+						<xs:documentation>Information ECN: This MessageType has only informative character and can be used to inform other participating carriers about changes before hand-over of the ECN.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="INFP">
+					<xs:annotation>
+						<xs:documentation>Information PCN: This MessageType has only informative character and may only be used to inform other participating carriers about the change from electronic transport to paper accompanied transport.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="CANCEL">
+					<xs:annotation>
+						<xs:documentation>The CANCEL message can only be send by the lead/contractual or the shipping carrier BEFORE the first hand-over of the ECN. By doing so, all participating carriers will receive a DEL message to inform them about the cancellation of their part of the transport.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DEL">
+					<xs:annotation>
+						<xs:documentation>This message is being created by the central application, only. The receiving carrier is being informed, that his part of the transport has been cancelled.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ECTD">
+					<xs:annotation>
+						<xs:documentation>Basic message type for transports accompanied by a paper consignment note message.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EUTD">
+					<xs:annotation>
+						<xs:documentation>Basic update  message type for transports accompanied by a paper consignment note message</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EDTD">
+					<xs:annotation>
+						<xs:documentation>Basic deletion message type for transports accompanied by a paper consignment note message.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ECOM">
+					<xs:annotation>
+						<xs:documentation>Electronic consignment order message for carriers in role 3.Used for paperless transport only.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ECOU">
+					<xs:annotation>
+						<xs:documentation>Update message for ECOM</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ECOD">
+					<xs:annotation>
+						<xs:documentation>Deletion message for ECOM</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="ConsignmentTypeCode">
+		<xs:annotation>
+			<xs:documentation>Identifies the type of a waybill.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="CIM">
+				<xs:annotation>
+					<xs:documentation>CIM	Convention Internationale Marchandises (OTIF)	Source: CIM (OTIF)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ConsignorDeclarationCode">
+		<xs:annotation>
+			<xs:documentation>Carrier declaration code.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Consignee not-authorised to take control of the goods</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Authorised consignee (within the meaning of customs law)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Escort(s) ... [name(s), first name(s)]</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Filled mass [weight]: ... (for tank-wagons refilled without having been cleaned - see RID section 5.4.1.2.2c)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Emergency telephone number for irregularities or accidents with dangerous goods</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Not to be passed to a substitute carrier</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>Loading by the carrier</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>Unloading by the carrier</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Agreed transit period: ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>Completion of administrative formalities: ... (see CIM Article 15)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>Exceptional consignment: ... (reference number for each of the rail carriers/infrastructure managers involved)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>Number of flat pallets marked "EUR" and exchangeable in the European Pallet Pool</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>Number of box-pallets marked "EUR" and exchangeable in the European Box-Pallet Pool</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>If the carrier's wagon sheets are used: number of sheets, abbreviation for the carrier and wagon sheet number(s)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>If the carrier's straps are used: number of straps and abbreviation for the carrier</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>Other declarations: ... (designation of a representative, designation of a substitute carrier, request for attention to be given to the consignment en route, etc.)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation>Shipment details for port traffic: ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="18">
+					<xs:annotation>
+						<xs:documentation>Used for CUV transports, only. Restrictions on the operation of the wagon known to the consignor (e.g. limited speed, etc.)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation>Dangerous goods packed in limited quantities the total gross mass of which exceeds eight tonnes per transport unit.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation>Wagon keeper according to article 17 AVV (Name)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation>Declaration for the transport of waste ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="31">
+					<xs:annotation>
+						<xs:documentation>CH import declaration by DB Cargo</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="32">
+					<xs:annotation>
+						<xs:documentation>CH import declaration by SBB Cargo</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="33">
+					<xs:annotation>
+						<xs:documentation>CH import declaration by third parties</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation>Presentation of goods subject to an NCTS procedure to customs by ... (Railway Undertaking name / code)  at ... (place name / destination customs office / station code)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CouplingType">
+		<xs:annotation>
+			<xs:documentation>Classification of coupling</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>without coupler</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>non-reinforced coupler less than 85t</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>reinforced coupler equals to 85t</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>ultra-reinforced coupler greater than 85t</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>automatic coupling</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CommercialSpecificationCode">
+		<xs:annotation>
+			<xs:documentation>Commercial specifications code</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Route ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Traffic flow ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Carriers mandated to perform the carriage, section, status</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Defined frontier stations..... (for exceptional consignments)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Other conditions requested....(for example: EDI contract number if an electronic consignment note is used.)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CustomerType">
+		<xs:annotation>
+			<xs:documentation>Type of participation</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="CR">
+					<xs:annotation>
+						<xs:documentation>Consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="CE">
+					<xs:annotation>
+						<xs:documentation>Consignee</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="FPCR">
+					<xs:annotation>
+						<xs:documentation>Freight payer</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="FPCE">
+					<xs:annotation>
+						<xs:documentation>Freight  payer CE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DangerLabel">
+		<xs:annotation>
+			<xs:documentation>All Danger Label of this dangerous good according to the RID chapter 3.2, table A, column 5, excepting the shunting labels Model 13 and 15 (CODE: OTIF RID-Specification).</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Explosive materials, divisions 1.1, 1.2 and 1.3</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1.4">
+					<xs:annotation>
+						<xs:documentation>Explosive materials, division 1.4</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1.5">
+					<xs:annotation>
+						<xs:documentation>Explosive materials, division 1.5</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1.6">
+					<xs:annotation>
+						<xs:documentation>Explosive materials, division 1.6</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2.1">
+					<xs:annotation>
+						<xs:documentation>Flammable gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2.2">
+					<xs:annotation>
+						<xs:documentation>Non-flammable, non-toxic gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2.3">
+					<xs:annotation>
+						<xs:documentation>Toxic gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Flammable liquids</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.1">
+					<xs:annotation>
+						<xs:documentation>Flammable solids , self-reactive substances and solid desensitized explosives</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.2">
+					<xs:annotation>
+						<xs:documentation>Substances liable to spontaneous combustion</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.3">
+					<xs:annotation>
+						<xs:documentation>Substances which, in contact with water, emit flammable gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5.1">
+					<xs:annotation>
+						<xs:documentation>Oxidizing substances</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5.2">
+					<xs:annotation>
+						<xs:documentation>Organic peroxides</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6.1">
+					<xs:annotation>
+						<xs:documentation>Toxic substances</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6.2">
+					<xs:annotation>
+						<xs:documentation>Infectious substances</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7A">
+					<xs:annotation>
+						<xs:documentation>Radioactive material, category I</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7B">
+					<xs:annotation>
+						<xs:documentation>Radioactive material, category II</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7C">
+					<xs:annotation>
+						<xs:documentation>Radioactive material, category III</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7D">
+					<xs:annotation>
+						<xs:documentation>(obsolete) should be used for general information about class 7</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7E">
+					<xs:annotation>
+						<xs:documentation>Fissile radioactive material</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>Corrosive substances</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Miscellaneous dangerous substances and articles</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9A"/>
+				<xs:enumeration value="1 (+13)"/>
+				<xs:enumeration value="1 (+15)"/>
+				<xs:enumeration value="1.4+6.1"/>
+				<xs:enumeration value="1.4+6.1+8"/>
+				<xs:enumeration value="1.4+8"/>
+				<xs:enumeration value="1+6.1"/>
+				<xs:enumeration value="1+6.1 (+13)"/>
+				<xs:enumeration value="1+6.1 (+15)"/>
+				<xs:enumeration value="1+6.1+8"/>
+				<xs:enumeration value="1+8"/>
+				<xs:enumeration value="2.1 (+13)"/>
+				<xs:enumeration value="2.1+6.1"/>
+				<xs:enumeration value="2.1+6.1+8"/>
+				<xs:enumeration value="2.1+6.1"/>
+				<xs:enumeration value="2.1+8"/>
+				<xs:enumeration value="2.2 (+13)"/>
+				<xs:enumeration value="2.2+5.1+6.1"/>
+				<xs:enumeration value="2.2+5.1+6.1+8"/>
+				<xs:enumeration value="2.2+5.1+8"/>
+				<xs:enumeration value="2.2+6.1"/>
+				<xs:enumeration value="2.2+6.1+8"/>
+				<xs:enumeration value="2.2+5.1"/>
+				<xs:enumeration value="2.2+5.1 (+13)"/>
+				<xs:enumeration value="2.2+6.1"/>
+				<xs:enumeration value="2.2+8"/>
+				<xs:enumeration value="2.3 (+13)"/>
+				<xs:enumeration value="2.3+2.1"/>
+				<xs:enumeration value="2.3+2.1 (+13)"/>
+				<xs:enumeration value="2.3+2.1+8"/>
+				<xs:enumeration value="2.3+2.1+8 (+13)"/>
+				<xs:enumeration value="2.3+5.1"/>
+				<xs:enumeration value="2.3+5.1 (+13)"/>
+				<xs:enumeration value="2.3+5.1+8"/>
+				<xs:enumeration value="2.3+5.1+8 (+13)"/>
+				<xs:enumeration value="2.3+8"/>
+				<xs:enumeration value="2.3+8 (+13)"/>
+				<xs:enumeration value="4.1+1"/>
+				<xs:enumeration value="5.2+1"/>
+				<xs:enumeration value="6.1+4.1"/>
+				<xs:enumeration value="6.1+8"/>
+				<xs:enumeration value="6.2+2.2"/>
+				<xs:enumeration value="7X"/>
+				<xs:enumeration value="7X+7E"/>
+				<xs:enumeration value="8+6.1"/>
+				<xs:enumeration value="9+2.2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="DelayCode">
+		<xs:annotation>
+			<xs:documentation>Reason for a delay or interruption.  UIC Leaflet 450-2, Appendix C.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="11">
+				<xs:annotation>
+					<xs:documentation>Formation of trains if managed by infrastructure manager</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10">
+				<xs:annotation>
+					<xs:documentation>Timetable compilation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="12">
+				<xs:annotation>
+					<xs:documentation>Mistakes in operational procedures</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="13">
+				<xs:annotation>
+					<xs:documentation>Wrong application of priority rules</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="18">
+				<xs:annotation>
+					<xs:documentation>Staff</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="19">
+				<xs:annotation>
+					<xs:documentation>Other causes related to the operational planning and management</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="20">
+				<xs:annotation>
+					<xs:documentation>Signalling installations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="21">
+				<xs:annotation>
+					<xs:documentation>Signalling installations at level crossings</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="22">
+				<xs:annotation>
+					<xs:documentation>Telecommunication installations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="23">
+				<xs:annotation>
+					<xs:documentation>Power supply equipment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="24">
+				<xs:annotation>
+					<xs:documentation>Track</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="25">
+				<xs:annotation>
+					<xs:documentation>Structures</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="28">
+				<xs:annotation>
+					<xs:documentation>Staff</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="29">
+				<xs:annotation>
+					<xs:documentation>Other causes related to infrastructure installations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="31">
+				<xs:annotation>
+					<xs:documentation>Irregularities in execution of construction work</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="30">
+				<xs:annotation>
+					<xs:documentation>Planned construction work</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="32">
+				<xs:annotation>
+					<xs:documentation>Speed restrictions due to defective track</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="39">
+				<xs:annotation>
+					<xs:documentation>Other causes related to Civil engineering</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40">
+				<xs:annotation>
+					<xs:documentation>Delay caused by next IM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="41">
+				<xs:annotation>
+					<xs:documentation>Delay caused by previous IM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="50">
+				<xs:annotation>
+					<xs:documentation>exceeding the stop time</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="51">
+				<xs:annotation>
+					<xs:documentation>Request of the RU</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="52">
+				<xs:annotation>
+					<xs:documentation>Loading operations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="53">
+				<xs:annotation>
+					<xs:documentation>Loading irregularities</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="54">
+				<xs:annotation>
+					<xs:documentation>Commercial preparation of the train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="58">
+				<xs:annotation>
+					<xs:documentation>Staff</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="59">
+				<xs:annotation>
+					<xs:documentation>Other causes related to commercial causes</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="60">
+				<xs:annotation>
+					<xs:documentation>Roster planning/re-rostering</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="61">
+				<xs:annotation>
+					<xs:documentation>Formation of trains by the RU</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="62">
+				<xs:annotation>
+					<xs:documentation>Problems affecting coaches</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="63">
+				<xs:annotation>
+					<xs:documentation>Problems affecting wagons</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="64">
+				<xs:annotation>
+					<xs:documentation>Problems affecting traction units</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="68">
+				<xs:annotation>
+					<xs:documentation>Staff</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="69">
+				<xs:annotation>
+					<xs:documentation>Other causes related to Rolling Stock</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="70">
+				<xs:annotation>
+					<xs:documentation>Delay caused by next RU</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="71">
+				<xs:annotation>
+					<xs:documentation>Delay caused by previous RU</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="80">
+				<xs:annotation>
+					<xs:documentation>Strike</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="81">
+				<xs:annotation>
+					<xs:documentation>Administrative formalites</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="82">
+				<xs:annotation>
+					<xs:documentation>Outside influence</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="83">
+				<xs:annotation>
+					<xs:documentation>Effects of weather and natural causes</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="84">
+				<xs:annotation>
+					<xs:documentation>Delay caused by external reasons on the next network</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="89">
+				<xs:annotation>
+					<xs:documentation>Other external causes</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="90">
+				<xs:annotation>
+					<xs:documentation>Dangerous incidents, accidents and hazards</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="91">
+				<xs:annotation>
+					<xs:documentation>Track occupation caused by the lateness of the same train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="92">
+				<xs:annotation>
+					<xs:documentation>Track occupation caused by the lateness of another train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="93">
+				<xs:annotation>
+					<xs:documentation>Turn round</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="94">
+				<xs:annotation>
+					<xs:documentation>Connection</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="95">
+				<xs:annotation>
+					<xs:documentation>Further investigation needed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="EmptyPackingCode">
+		<xs:annotation>
+			<xs:documentation>Code of empty packing as described in RID 5.4.1.1.6.2</xs:documentation>
+			<xs:documentation>CODE: OTIF RID-Specification, element EMPTY has been added as 'dummy' until the code list has been finished and approved. </xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01">
+					<xs:annotation>
+						<xs:documentation>EMPTY PACKAGING</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="02">
+					<xs:annotation>
+						<xs:documentation>EMPTY CONTAINER</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="03">
+					<xs:annotation>
+						<xs:documentation>EMPTY IBC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="04">
+					<xs:annotation>
+						<xs:documentation>EMPTY LARGE PACKAGING</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="05">
+					<xs:annotation>
+						<xs:documentation>EMPTY TANK-VEHICLE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="06">
+					<xs:annotation>
+						<xs:documentation>EMPTY TANK-WAGON</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="07">
+					<xs:annotation>
+						<xs:documentation>EMPTY DETACHABLE TANK</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="08">
+					<xs:annotation>
+						<xs:documentation>EMPTY DEMOUNTABLE TANK</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="09">
+					<xs:annotation>
+						<xs:documentation>EMPTY TANK-CONTAINER</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>EMPTY PORTABLE TANK</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>EMPTY BATTERY-VEHICLE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>EMPTY BATTERY-WAGON</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>EMPTY LARGE CONTAINER WITH MULTIPLE LINKED ELEMENTS</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>EMPTY VEHICLE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>EMPTY WAGON</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>EMPTY RECEPTACLE le 1000L</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation>EMPTY RECEPTACLE gt 1000L</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="18">
+					<xs:annotation>
+						<xs:documentation>EMPTY</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="HandBrakeType">
+		<xs:annotation>
+			<xs:documentation>Classification of hand brake</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>No hand brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Ground-operated hand brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Platform-operated hand brake</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ILU_TypeDetail">
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="BX"/>
+				<xs:enumeration value="BK"/>
+				<xs:enumeration value="FL"/>
+				<xs:enumeration value="HT"/>
+				<xs:enumeration value="HC"/>
+				<xs:enumeration value="IN"/>
+				<xs:enumeration value="OT"/>
+				<xs:enumeration value="HH"/>
+				<xs:enumeration value="PW"/>
+				<xs:enumeration value="OS"/>
+				<xs:enumeration value="RF"/>
+				<xs:enumeration value="SD"/>
+				<xs:enumeration value="SL"/>
+				<xs:enumeration value="VE"/>
+				<xs:enumeration value="TC"/>
+				<xs:enumeration value="RH"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="IncotermCode">
+		<xs:annotation>
+			<xs:documentation>Incoterm (given by the client)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="CIP">
+					<xs:annotation>
+						<xs:documentation>Carriage Insurance Paid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="CPT">
+					<xs:annotation>
+						<xs:documentation>Carriage Paid To</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DAF">
+					<xs:annotation>
+						<xs:documentation>Delivered At Frontier (deprecated in 2011-01-01)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DDP">
+					<xs:annotation>
+						<xs:documentation>Delivered Duty Paid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DDU">
+					<xs:annotation>
+						<xs:documentation>Delivered Duty Unpaid (deprecated in 2011-01-01)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="EXW">
+					<xs:annotation>
+						<xs:documentation>EX Works</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="FCA">
+					<xs:annotation>
+						<xs:documentation>Free Carrier</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DAP">
+					<xs:annotation>
+						<xs:documentation>Delivered At Place</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DAT">
+					<xs:annotation>
+						<xs:documentation>Delivered At Terminal</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="InfoIndex">
+		<xs:annotation>
+			<xs:documentation>indicates additional information</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="InfoOnGoodsShapeTypeDanger">
+		<xs:annotation>
+			<xs:documentation>Additional codified information on the load.  Coding Structures as defined in 404-2  chapter 4.1</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01">
+					<xs:annotation>
+						<xs:documentation>Container</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="02">
+					<xs:annotation>
+						<xs:documentation>Other intermodal traffic</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="03">
+					<xs:annotation>
+						<xs:documentation>Rolling road (RR)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="06">
+					<xs:annotation>
+						<xs:documentation>Semi-Trailer on bogies</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>1 - danger of explosion (subclass 1.1, 1.2, 1.3)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>1.4 - danger of explosion (subclass 1.4)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>1.5 - danger of explosion (subclass 1.5)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>1.6 - danger of explosion (subclass 1.6)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation>2.1 - inflammable gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation>2.2 - non inflammable,non-toxic gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation>2.3 - toxic gases</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="30">
+					<xs:annotation>
+						<xs:documentation>3 - fire hazard (inflammable liquids)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="41">
+					<xs:annotation>
+						<xs:documentation>4.1 - fire hazard (inflammable solids)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation>4.2 - spontaneoulsy inflammable</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="43">
+					<xs:annotation>
+						<xs:documentation>4.3 - gives off inflammable gas on contact with water</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="51">
+					<xs:annotation>
+						<xs:documentation>5.1 - combustible substance</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="52">
+					<xs:annotation>
+						<xs:documentation>5.2 - organic peroxide</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="61">
+					<xs:annotation>
+						<xs:documentation>6.1 - toxic substance</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="62">
+					<xs:annotation>
+						<xs:documentation>6.2 - infectious substance</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="71">
+					<xs:annotation>
+						<xs:documentation>7A - radioactive substance in category I packing WHITE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="72">
+					<xs:annotation>
+						<xs:documentation>7B - radioactive substance in category II packing YELLOW</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="73">
+					<xs:annotation>
+						<xs:documentation>7C - radioactive substance in category III packing YELLOW</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="74">
+					<xs:annotation>
+						<xs:documentation>7D - Common label for radioactive substances included under 7A, 7B + 7C</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="75">
+					<xs:annotation>
+						<xs:documentation>7E - fissible substance</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="80">
+					<xs:annotation>
+						<xs:documentation>8 - corrosive substance</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="90">
+					<xs:annotation>
+						<xs:documentation>Various dangerouse substance and objects not covered by the other classes</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="96">
+					<xs:annotation>
+						<xs:documentation>Environmentally hazardous substance (RID 5.2.1.8)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="97">
+					<xs:annotation>
+						<xs:documentation>More than 8 tons of dangerous goods packaged in limited quantities (LQ)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="98">
+					<xs:annotation>
+						<xs:documentation>Livestock</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="99">
+					<xs:annotation>
+						<xs:documentation>Perishables</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="InteropCapability">
+		<xs:annotation>
+			<xs:documentation>Identification of the general interoperability capability of the wagon.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:totalDigits value="2"/>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>National</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Bi-/Multilateral (with agreement or authorisation grid)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>RIV</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>TEN</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>TEN-GE</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>TEN-CW</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>TEN RIV</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="JourneyLocationTypeCode">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01">
+					<xs:annotation>
+						<xs:documentation>Origin</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="02">
+					<xs:annotation>
+						<xs:documentation>Intermediate</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="03">
+					<xs:annotation>
+						<xs:documentation>Destination</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="04">
+					<xs:annotation>
+						<xs:documentation>Handover</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="05">
+					<xs:annotation>
+						<xs:documentation>Interchange</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="06">
+					<xs:annotation>
+						<xs:documentation>Handover and Interchange</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="07">
+					<xs:annotation>
+						<xs:documentation>State Border</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="08">
+					<xs:annotation>
+						<xs:documentation>None</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="09">
+					<xs:annotation>
+						<xs:documentation>Network border</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="99">
+					<xs:annotation>
+						<xs:documentation>Mutually Defined</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LivestockOrPeopleIndicator">
+		<xs:annotation>
+			<xs:documentation>Indicates that livestock and people (other than train crew) will be carried. Coding: if live animals or people are transported = 1, in opposite case = 0. If code = 1, then at the wagon level for at least one wagon Info- Goods Shape, Type and Danger has to include the code '98' or Restrictions due to Load or Damage has to include code '09.'</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="0"/>
+				<xs:enumeration value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LoadTableStars">
+		<xs:annotation>
+			<xs:documentation>Number of load table stars.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:totalDigits value="1"/>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Authorised to run in trains up to 100 km/h with a brake that does not meet all the requirements for S (100 km/h) conditions.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Authorised to run in trains up to 120 km/h with a brake that does not meet all the requirements for SS (120 km/h) conditions.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Authorised to run in trains up to 120 km/h with a brake that does not meet all the requirements for SS (120 km/h) conditions. The wagons must be fitted with an automatic load-proportional braking system.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:attribute name="LocationSubsidiaryTypeCode">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>Not Defined</xs:documentation>
+						<xs:documentation>not used</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Track</xs:documentation>
+						<xs:documentation>The track is a uniquely defined part of location</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Border Point Code</xs:documentation>
+						<xs:documentation>Special code for the Border Points are allocated at the country border and the points between different IM networks. Location of these points sometimes are not geographically same with the station or yard. Therefore these points are "logical point"</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Sorting Code</xs:documentation>
+						<xs:documentation>Destination station of the wagon has a code in order to provide shunting technology.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Vehicle Parking Points</xs:documentation>
+						<xs:documentation>All points (tracks)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Public Loading Places</xs:documentation>
+						<xs:documentation>Is a type of physical location on the open access network where consignor or consignee can load or unload wagons</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>Private Loading Places</xs:documentation>
+						<xs:documentation>Is a type of physical location outside the open access network where consignor or consignee can load or unload wagons</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9">
+					<xs:annotation>
+						<xs:documentation>Depot / Maintenance workshop.Place for overhaul or maintenance of the rolling stock.	</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>Switch/turnout</xs:documentation>
+						<xs:documentation>The location where two tracks meet or diverge.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>Platform</xs:documentation>
+						<xs:documentation>The area next to the track which has been raised to make access to railway vehicles easier.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation>Building</xs:documentation>
+						<xs:documentation>Those buildings where IM placed his staff for direct communication with RU staff or the IM buildings serve RU activities as well.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation>Level crossing</xs:documentation>
+						<xs:documentation>Place where rail and road crossing in level. on the same level (grade)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation>Bridge</xs:documentation>
+						<xs:documentation>Special built structure is over the road</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation>Tunnel</xs:documentation>
+						<xs:documentation>Structure to to allow a railway line to pass under the surface.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation>Underpass</xs:documentation>
+						<xs:documentation>Undercrossing or underground passage under the railway track. (Not used by trains)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="27">
+					<xs:annotation>
+						<xs:documentation>Signal</xs:documentation>
+						<xs:documentation>A signal is a mechanical or electrical device erected beside a railway line to pass information relating to the state of the line ahead to train drivers/engineers.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="28">
+					<xs:annotation>
+						<xs:documentation>Sign and board</xs:documentation>
+						<xs:documentation>Equipment to inform the board staff for train traffic and shunting.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="29">
+					<xs:annotation>
+						<xs:documentation>Phase break</xs:documentation>
+						<xs:documentation>Border of the power supply systems (catenary).</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="33">
+					<xs:annotation>
+						<xs:documentation>Hot spot detector</xs:documentation>
+						<xs:documentation>Trackside equipment which detects hot wheels or axle-box on passing trains.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="36">
+					<xs:annotation>
+						<xs:documentation>Freight yard</xs:documentation>
+						<xs:documentation>A freight yard is commercial usage of a physical location which can be used as a sending or a destination station in freight orders of rail freight transports. The freight yard can have his own codification</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="37">
+					<xs:annotation>
+						<xs:documentation>Loading point</xs:documentation>
+						<xs:documentation>A loading point is a commercial usage of a physical location. Each loading point is assigned to a yard.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="39">
+					<xs:annotation>
+						<xs:documentation>Reservation code</xs:documentation>
+						<xs:documentation/>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="40">
+					<xs:annotation>
+						<xs:documentation>Metastation</xs:documentation>
+						<xs:documentation>To mark a meta location that forms the link between different stations that are considered as equal (for the traveller)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="41">
+					<xs:annotation>
+						<xs:documentation>CompanySpecificIdentifier</xs:documentation>
+						<xs:documentation>Company specific identifier of the primary location</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation>DIUM stations - Places of acceptance/delivery	Station open into international traffic of goods (tariff point included in DIUM) – consignment acceptance/delivery station (loading points are excluded and covered by TypeCode 37).</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="43">
+					<xs:annotation>
+						<xs:documentation>Passengers cars public loading	Is a type of physical location on the open access network where passengers can put their car on a carrying train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="45">
+					<xs:annotation>
+						<xs:documentation>Sewage dump	Place for cleaning purposes - disposal of the waste</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="46">
+					<xs:annotation>
+						<xs:documentation>Refuelling Point	Location where refuelling takes place</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="47">
+					<xs:annotation>
+						<xs:documentation>Mains Supply	Location where energy supply can be provided for the rolling stock e.g. preheating</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="48">
+					<xs:annotation>
+						<xs:documentation>Water Supply	Location where water supply can be provided for the rolling stock	</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="50">
+					<xs:annotation>
+						<xs:documentation>Indoor cleaning platform	Cleaning point -interior</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="51">
+					<xs:annotation>
+						<xs:documentation>Car-wash plant	Cleaning point -outdoor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="52">
+					<xs:annotation>
+						<xs:documentation>Short dry-cleaning track	Cleaning point</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="54">
+					<xs:annotation>
+						<xs:documentation>Sand-filling station	Location where sand is filled</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="56">
+					<xs:annotation>
+						<xs:documentation>Signal box	The location of a building containing signalling equipment</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="57">
+					<xs:annotation>
+						<xs:documentation>Intermodal Terminal</xs:documentation>
+						<xs:documentation> Intermodal Terminal is a location which provides the space, equipment and operational environment under which the transfer of loading units (freight containers, swap bodies, semi-trailers or trailers) takes place </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="58">
+					<xs:annotation>
+						<xs:documentation>OSJD system based location</xs:documentation>
+						<xs:documentation>Location code used within OSJD</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="59">
+					<xs:annotation>
+						<xs:documentation>Train Service Substitute Stop</xs:documentation>
+						<xs:documentation>Place outside of railway station or railway stop, where passengers board or leave bus or any other transport mean as substitution of train service. Physical part of Primary Location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="60">
+					<xs:annotation>
+						<xs:documentation>Multifunctional rail terminal</xs:documentation>
+						<xs:documentation>Facilities for conventional and/or intermodal rail/road transshipment principally open for public use and for all types of cargo. This kind of facility does not only provide transshipment, but also additional services like storage, consignment or road pre/end haulage. Physical part of Primary Location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="61">
+					<xs:annotation>
+						<xs:documentation>Relief facility</xs:documentation>
+						<xs:documentation>Facilities providing equipment and infrastructure used to overcome a disruption (derailment, collision or other accidents). Physical part of Primary Location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="66">
+					<xs:annotation>
+						<xs:documentation>Location ENEE Code</xs:documentation>
+						<xs:documentation>Legacy ENEE code of the parent primary location. Different coding of primary location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="70">
+					<xs:annotation>
+						<xs:documentation>Network Border</xs:documentation>
+						<xs:documentation>Network border between two neighboring IM's; first or last Primary Location on a network. Attribute of primary location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="71">
+					<xs:annotation>
+						<xs:documentation>State border</xs:documentation>
+						<xs:documentation>Political border between two member states. Attribute of primary location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="72">
+					<xs:annotation>
+						<xs:documentation>Administrative border</xs:documentation>
+						<xs:documentation>Border point inside a member state to define federal structures or administrative districts or local areas. Attribute of primary location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="74">
+					<xs:annotation>
+						<xs:documentation>Operational handover</xs:documentation>
+						<xs:documentation>Location where the responsibility for operation changes or can change between two involved IMs. Attribute of primary location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="75">
+					<xs:annotation>
+						<xs:documentation>Planning handover</xs:documentation>
+						<xs:documentation>Location where the responsibility for timetable planning and path allocation changes or can change between two involved IMs. Attribute of primary location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="76">
+					<xs:annotation>
+						<xs:documentation>Other technical facility</xs:documentation>
+						<xs:documentation>All technical installations and services that are not included in other facility types. E.g. Pre heating, de icing, air conditioning, Washing/cleaning of rolling stock, Disinfection of rolling stock, Sewage removal and Stationary brake test facilities. Physical part of Primary Location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="99">
+					<xs:annotation>
+						<xs:documentation>Relation to Station</xs:documentation>
+						<xs:documentation>An indicator used to show that this location is a subsidiary of another location.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:simpleType name="MessageCode">
+		<xs:annotation>
+			<xs:documentation>Identifies the type of message</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="9999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MessageStatus">
+		<xs:annotation>
+			<xs:documentation>Assigned by the Sender 1=creation, 2=modification, 3=deletion</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>creation</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>modification</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>deletion</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MRN_Type">
+		<xs:annotation>
+			<xs:documentation>Type of MRN given, CODE: CIT GLV-CIM appendix 2</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="MRN-E">
+					<xs:annotation>
+						<xs:documentation>if an EXPORT declaration has been lodged</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="MRN-T">
+					<xs:annotation>
+						<xs:documentation>if a TRANSIT declaration has been lodged</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="MRN-TS">
+					<xs:annotation>
+						<xs:documentation>if a TRANSIT declaration with SECURITY data has been lodged</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="MRN-EXS">
+					<xs:annotation>
+						<xs:documentation>if the EXIT SUMMARY declaration has been made separately by the consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="MRN-ENS">
+					<xs:annotation>
+						<xs:documentation>if the ENTRY SUMMARY declaration has been made separately by the consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="NormalLoadingGauge">
+		<xs:annotation>
+			<xs:documentation>
+			All codes are defined in the UIC leaflet 505-1 and 503, as well as in the EN 15273-2:2013. For details please refer to EN 15273-2:2013 (Railway applications - Gauges - Part 2: Rolling stock gauge). For the existing gauges in the list, the Annex B.3 should be used.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="G1"/>
+				<xs:enumeration value="G2"/>
+				<xs:enumeration value="GA"/>
+				<xs:enumeration value="GB"/>
+				<xs:enumeration value="GC"/>
+				<xs:enumeration value="GB1"/>
+				<xs:enumeration value="GB2"/>
+				<xs:enumeration value="GB-M6"/>
+				<xs:enumeration value="GHE16"/>
+				<xs:enumeration value="W6-A"/>
+				<xs:enumeration value="SEa"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PackingGroup">
+		<xs:annotation>
+			<xs:documentation>The Packing Group according to the RID chapter 3.2, table A, column 4. Possible values are "I", "II" or "III", otherwise the Packing Group have to be omitted. Mandatory, if it's foreseen in column 4, except it concerns a declaration of an empty packaging of the type "EMPTY PACKAGING", "EMPTY RECEPTACLE &lt;=1000L", "EMPTY IBC" or "EMPTY LARGE PACKAGING".</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="I">
+					<xs:annotation>
+						<xs:documentation>High danger</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="II">
+					<xs:annotation>
+						<xs:documentation>Medium danger</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="III">
+					<xs:annotation>
+						<xs:documentation>Low danger</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PrepaidCodeCustomer">
+		<xs:annotation>
+			<xs:documentation>Prepaidcode (given by the customer)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>prepaid freight</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including... </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including...up to border of origin country</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including...up to exit border of last transit country </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including...up to exit border of other countries </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>prepaid freight up to border of origin country </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>prepaid freight up to exit border of last transit country</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation>prepaid freight up to exit border of other countries </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="20">
+					<xs:annotation>
+						<xs:documentation>prepaid all costs</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation>Free carrier </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="43">
+					<xs:annotation>
+						<xs:documentation>Carriage paid to...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="44">
+					<xs:annotation>
+						<xs:documentation>Delivered duty unpaid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="45">
+					<xs:annotation>
+						<xs:documentation>Carriage insurance paid </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="46">
+					<xs:annotation>
+						<xs:documentation>Delivered at terminal</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="47">
+					<xs:annotation>
+						<xs:documentation>Delivered at place</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="90">
+					<xs:annotation>
+						<xs:documentation>not prepaid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PrepaidcodeCarrier">
+		<xs:annotation>
+			<xs:documentation>Prepaidcode (given by the railway)</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>prepaid freight</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including... </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including...up to border of origin country</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including...up to exit border of last transit country </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>prepaid freight including...up to exit border of other countries </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>prepaid freight up to border of origin country </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>prepaid freight up to exit border of last transit country</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation>prepaid freight up to exit border of other countries </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="20">
+					<xs:annotation>
+						<xs:documentation>prepaid all costs</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation>Free carrier </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="43">
+					<xs:annotation>
+						<xs:documentation>Carriage paid to...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="44">
+					<xs:annotation>
+						<xs:documentation>Delivered duty unpaid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="45">
+					<xs:annotation>
+						<xs:documentation>Carriage insurance paid </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="46">
+					<xs:annotation>
+						<xs:documentation>Delivered at terminal</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="47">
+					<xs:annotation>
+						<xs:documentation>Delivered at place</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="90">
+					<xs:annotation>
+						<xs:documentation>not prepaid</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ProcessType">
+		<xs:annotation>
+			<xs:documentation>Business process type to further distinguish among type of requests.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>New Path Request and allocation process for annual timetable</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Late Path Request and allocation process for annual timetable</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Ad hoc path request and allocation process</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Rolling Planning path request and allocation process</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Feasibility Study process</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Path Modification process (triggered by applicant)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Path Alteration process (triggered by IM)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>Pre-arranged Path publication by RFC</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>Catalogue Path publication by IM</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>Path Cancellation process</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>Path Utilisation notification process</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ReasonOfReference">
+		<xs:annotation>
+			<xs:documentation>Indicates the reason/purpose of usage of element RelatedPlannedTransportIdentifier.
+
+List of codes for element ReasonOfReference:
+1000 = Same path offer is desired as for stated PathRequestMessage
+    (Additional information: For a train requested with more than one PathRequestMessage (all with different bitmapdays) the same (or nearly the same)
+    routing and timing at location in path offers for all PathRequestMessages (PathRequestIDs) is desired by Responsible Applicant (if it is possible).
+    RPTID: All others PathRequestIDs).
+1001 = Same path is desired as for stated train/path
+    (Additional information: For that path request the same (or nearly the same) routing/path elaboration/offer is desired by Responsible Applicant
+    (if it is possible) as for stated train/path (may be in a previous period). RPTID: TrainID or PathID).
+1002 = Full replacement of stated previous path
+    (Additional information:The current path given in PathDetailsMessage will replace the stated path fully after confirming the path offer.
+    The code is used to mark an alternative offer after PathNotAvailableMessage/PathCanceledMessage or path alteration by IM. Calendar of
+    previous path and offered path contain the same dates. The previous path doesn’t exist anymore. RPTID: PathID).
+1003 = Partial replacement of stated previous path
+    (Additional information: The current path given in PathDetailsMessage will replace the stated path partially after confirming the path offer.
+    The code is used to mark an alternative offer after PathNotAvailableMessage/PathCanceledMessage or path alteration by IM only for a part of
+    the previous calendar/traffic days. Calendar of offered path is only part of the calendar of former and changed path. The calendar of the previous
+    path has to changed (less days and shorter validity period) after confirmation of the offered path. RPTID: PathID).
+1004 = Reference to sub train of Y-train bundle
+    (Additional information: The current PathRequestMessage contains the main train of a Y-train bundle; the TrainID stated in RPTID is for
+    the sub train which will be joined with or splitted of the main train.)
+1005 = Reference to main train of Y-train bundle
+    (Additional information: The current PathRequestMessage contains the sub train of a Y-train bundle. The TrainID stated in RPTID is for
+    the main train with which the sub train will be joined with or splitted of.)
+1006 = Reference to another PathRequestMessage after interruption train’s journey by a foreign infrastructure area
+     (Additional information: The referencing indicates that another PathRequestMessage (specifying PathRequestID as RPTID) for the same train
+    exists after passing a foreign infrastructure area to continue train’s journey.)
+1007 = Reference to another PathRequestMessage before interruption train’s journey by a foreign infrastructure area
+    (Additional information: The referencing indicates that another PathRequestMessage (specifying PathRequestID as RPTID) for the same train
+    exists before passing a foreign infrastructure area.)
+1008 = Reference to further path offer for the PathRequestMessage
+    (Additional information: There are more than one path offers for the PathRequestMessage. RPTID: All other PathID's.)
+1009 = Reference to booked path before interruption by railway replacement traffic by bus
+    (Additional information: The stated train/path is continued following a railway replacement traffic with that new requested train/path. RPTID: PathID).
+1010 = Reference to a PreArrangedPath
+    (Additional information: Reference to a PathID of existing PAP, which is to be used by an annual train requested with that PRM. RPTID: PathID).
+1011 = Only the new train object shall be linked with the existing booked path for the specified validity period; no new path elaboration is needed
+    (Additional information: The code is used, when a new train object has to be linked with an existing booked path for a specified validity period
+    and no new path elaboration is needed. It is used in modification process of planning phase only instead of using UpdateLinkMessage and
+    ObjectInfoMessage. Result: Internal path modification (reduce of validity period of calendar) for previous Path. New path with new PathID for
+    the specified validity period. RPTID: Previous TrainID and PathID).
+1012 = New final offer to former draft offer
+    (Additional information: Reference to (old) draft offer in case of IM is making a (different) new offer (TypeOfInformation : Final offer).
+    Code is used only in process PathRequest (annual timetable); RPTID : PathID of draft offer.)
+1013 = Replaced path after modification by ResponsibleApplicant
+    (Additional information: Reference to replaced path when IM is making an offer after receiving PathRequestMessage sent by RA for
+    modification of booked path. Code is used only in Path Modification process in PathDetailsMessage. RPTID: PathID.)
+1014 = New Route
+    (Additional information: Reference to previous Route replaced by the new Route)
+
+1015 = Updated Route
+    (Additional information: Reference to the Route that is updated)
+5001 = Reference to another object on the basis of incident management in operations phase
+Specific code only for one IM/national codes:
+
+DE01 = Reference to an associated empty/transfer train
+    (Additional information: Stated train is a related train without passengers before or behind the current requested path for a train with
+    passengers. RPTID: TrainID.)
+DE02 = Reference to an associated main run
+    (Additional information: Stated train is a related train with passengers before or behind the current requested path for a train without
+    passengers. RPTID: TrainID.)
+DE03 = Notice stated PathRequestMessage
+    (Additional information: For path elaboration of current PathRequestMessage the stated PathRequestMessage should be considered.
+    RPTID: PathRequestID.)
+DE04 = Replacement of stated train
+    (Additional information: Full or partial replacement of the named former train; example: Change of passenger trainset (like ICE or TGV)
+    by set of loco and wagons in case of technical problems, delay or other reasons. It is not only change of TrainID. RPTID: TrainID.)
+DE05 = Reference to a reserved capacity
+    (Additional information: This code can be used to refer to a study offer (with booking option) as a result of the KFB process (internal
+    process for a specific product of DB Netz). RPTID: PathID.)
+DE06 = Use of same OTN as of stated train
+    (Additional information: Responsible Applicant wants to use same OTN as in stated train because of all trains are part of same family.
+    The trains have only slightly differences on various days. RPTID: TrainID.)            
+DE07 = PathID from a framework contract
+</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="4"/>
+				<xs:maxLength value="4"/>
+				<xs:enumeration value="1000">
+					<xs:annotation>
+						<xs:documentation>Same path offer is desired as for stated PathRequestMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1001">
+					<xs:annotation>
+						<xs:documentation>Same path is desired as for stated train/path</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1002">
+					<xs:annotation>
+						<xs:documentation>Full replacement of stated previous path</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1003">
+					<xs:annotation>
+						<xs:documentation>Partial replacement of stated previous path</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1004">
+					<xs:annotation>
+						<xs:documentation>Reference to sub train of Y-train bundle</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1005">
+					<xs:annotation>
+						<xs:documentation>Reference to main train of Y-train bundle</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1006">
+					<xs:annotation>
+						<xs:documentation>Reference to another PathRequestMessage after interruption train’s journey by a foreign infrastructure area</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1007">
+					<xs:annotation>
+						<xs:documentation>Reference to another PathRequestMessage before interruption train’s journey by a foreign infrastructure area</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1008">
+					<xs:annotation>
+						<xs:documentation>Reference to further path offer for the PathRequestMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1009">
+					<xs:annotation>
+						<xs:documentation>Reference to booked path before interruption by railway replacement traffic by bus</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1010">
+					<xs:annotation>
+						<xs:documentation>Reference to a PreArrangedPath</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1011">
+					<xs:annotation>
+						<xs:documentation>Only the new train object shall be linked with the existing booked path for the specified validity period; no new path elaboration is needed</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1012">
+					<xs:annotation>
+						<xs:documentation>New final offer to former draft offer</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1013">
+					<xs:annotation>
+						<xs:documentation>Replaced path after modification by ResponsibleApplicant</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1014">
+					<xs:annotation>
+						<xs:documentation>New Route</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1015">
+					<xs:annotation>
+						<xs:documentation>Updated Route</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5001">
+					<xs:annotation>
+						<xs:documentation>Reference to another object on the basis of incident management in operations phase</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE01">
+					<xs:annotation>
+						<xs:documentation>Reference to an associated empty/transfer train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE02">
+					<xs:annotation>
+						<xs:documentation>Reference to an associated main run</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE03">
+					<xs:annotation>
+						<xs:documentation>Notice stated PathRequestMessage</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE04">
+					<xs:annotation>
+						<xs:documentation>Replacement of stated train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE05">
+					<xs:annotation>
+						<xs:documentation>Reference to a reserved capacity</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE06">
+					<xs:annotation>
+						<xs:documentation>Use of same OTN as of stated train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="DE07">
+					<xs:annotation>
+						<xs:documentation>PathID from a framework contract</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="RestrictionCodes">
+		<xs:annotation>
+			<xs:documentation>
+									All codes of Transport restrictions for Freight Traffic (cf. UIC 920-13) and Passengers Traffic are in the same list. 
+									F = Freight
+P = Passenger
+T = Technical
+D = Damage
+L = Load
+
+Code	F or P	Description																																				T	D	L
+07	F	Shunt only when hand brake operable with ground staff																								x	 	x
+08	F	Tank wagon loaded with liquid	 																																	x	 
+09	F	Wagon loaded with people	 																																		x	 
+11	F	Wagon other than bogie wagon with wheelbase of more than 9 metres																		x	 	 
+12	F	Bogie wagon with distance between wheels of more than 14 metres and up to and including a distance of 17,50 metres	x	 	 
+13	F	Bogie wagon with distance between wheels of more than 17,50 metres																		x	 	 
+15	F	Wagon not allowed over the hump																															x	x	x
+16	F	Do not fly shunt or gravity shunt (3 red triangles)																										x	x	x
+18	F	Must not use active braking equipment																													x	 	 
+25	F	Gas carrying tank wagon with orange side stripe																										x	 	 
+30	P (+F)	CCS fault (see CCS coding list)	 																														x	 
+31	P (+F)	Braking system fault	 																																		x	 
+32	P (+F)	Wheelset, bogie fault	 																																		x	 
+33	P (+F)	Headlighting or back lighting fault	 																													x	 
+34	P (+F)	Front glass broken	 																																			x	 
+35	P (+F)	Horn fault	 																																						x	 
+36	P (+F)	Radio fault	 																																						x	 
+37	P (+F)	Energy supply fault	 																																		x	 
+38	P (+F)	Traction or motor fault	 																																	x	 
+39	P	Access door fault	 																																					x	 
+41	F	Place this wagon at the front of the train																													x	x	x
+42	F	Place this wagon at the rear of the train																													x	x	x
+50	P (+F)	Speed restriction	 																																			x	x
+52	P (+F)	Diesel locomotive instead of electric locomotive	 																								x	(X) F
+61	F	Wagon forming part of a consignment of several wagons	 																							x	 
+62	F	Wagon forming part of a group of wagons from which it must not be separated	 															x	 
+63	F (+P)	Special consignment or (for Passengers trains) loading/cinematic gauge larger than the planned one					x	x	 
+68	F	First or last wagon of a wagon group from which it must not be separated	 																	x	 
+70	F	Shunt with care (1 red triangle)																																x	x	x
+71	F	Shunt with special care (2 red triangle)																													x	x	x
+90	P	Train planned with passengers operated without passengers	 	 																						x
+91	P	Train planned without passengers operated with passengers	 	 																						x
+92	P	Train planned with hauled rolling stock and operated without any coaches (light engine)	 												x	x
+94	F	Gas carrying wagon without orange side stripe																											x	 	 
+99	P	Other	 																																									x	x
+
+									</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="07">
+				<xs:annotation>
+					<xs:documentation>F - Shunt only when hand brake operable with ground staff</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="08">
+				<xs:annotation>
+					<xs:documentation>F - Tank wagon loaded with liquid</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="09">
+				<xs:annotation>
+					<xs:documentation>F - Wagon loaded with people</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="11">
+				<xs:annotation>
+					<xs:documentation>F - Wagon other than bogie wagon with wheelbase of more than 9 metres</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="12">
+				<xs:annotation>
+					<xs:documentation>F - Bogie wagon with distance between wheels of more than 14 metres and up to and including a distance of 17,50 metres</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="13">
+				<xs:annotation>
+					<xs:documentation>F - Bogie wagon with distance between wheels of more than 17,50 metres</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="15">
+				<xs:annotation>
+					<xs:documentation>F - Wagon not allowed over the hump</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="16">
+				<xs:annotation>
+					<xs:documentation>F - Do not fly shunt or gravity shunt (3 red triangles)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="18">
+				<xs:annotation>
+					<xs:documentation>F - Must not use active braking equipment</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="25">
+				<xs:annotation>
+					<xs:documentation>F - Gas carrying tank wagon with orange side stripe</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="30">
+				<xs:annotation>
+					<xs:documentation>P (+F) - CCS fault (see CCS coding list)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="31">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Braking system fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="32">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Wheelset, bogie fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="33">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Headlighting or back lighting fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="34">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Front glass broken</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="35">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Horn fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="36">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Radio fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="37">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Energy supply fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="38">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Traction or motor fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="39">
+				<xs:annotation>
+					<xs:documentation>P - Access door fault</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="41">
+				<xs:annotation>
+					<xs:documentation>F - Place this wagon at the front of the train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="42">
+				<xs:annotation>
+					<xs:documentation>F - Place this wagon at the rear of the train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="50">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Speed restriction</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="52">
+				<xs:annotation>
+					<xs:documentation>P (+F) - Diesel locomotive instead of electric locomotive</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="61">
+				<xs:annotation>
+					<xs:documentation>F - Wagon forming part of a consignment of several wagons</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="62">
+				<xs:annotation>
+					<xs:documentation>F - Wagon forming part of a group of wagons from which it must not be separated</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="63">
+				<xs:annotation>
+					<xs:documentation>F (+P) - Special consignment or (for Passengers trains) loading/cinematic gauge larger than the planned one</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="68">
+				<xs:annotation>
+					<xs:documentation>F - First or last wagon of a wagon group from which it must not be separated</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="70">
+				<xs:annotation>
+					<xs:documentation>F - Shunt with care (1 red triangle)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="71">
+				<xs:annotation>
+					<xs:documentation>F - Shunt with special care (2 red triangle)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="90">
+				<xs:annotation>
+					<xs:documentation>P - Train planned with passengers operated without passengers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="91">
+				<xs:annotation>
+					<xs:documentation>P - Train planned without passengers operated with passengers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="92">
+				<xs:annotation>
+					<xs:documentation>P - Train planned with hauled rolling stock and operated without any coaches (light engine)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="94">
+				<xs:annotation>
+					<xs:documentation>F - Gas carrying wagon without orange side stripe</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="99">
+				<xs:annotation>
+					<xs:documentation>P - Other</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RefusalCode">
+		<xs:annotation>
+			<xs:documentation>Code List Candidate</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Data not authorised by Wagon Keeper</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Wagon number freight unknown</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RollingRoadUnitType">
+		<xs:annotation>
+			<xs:documentation>Type of Rolling Road unit on Wagon</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="HGZ">
+					<xs:annotation>
+						<xs:documentation>articulated lorry</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="SAL">
+					<xs:annotation>
+						<xs:documentation>semi-trailer</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="MW">
+					<xs:annotation>
+						<xs:documentation>motor vehicle</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ANH">
+					<xs:annotation>
+						<xs:documentation>trailer</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RouteClass">
+		<xs:annotation>
+			<xs:documentation>Indication of the route class (based on CEN EN 15528: line categories for managing the interface between load limits of vehicles on infrastructure). All the codes in this code list refer to CEN EN 15528: line categories for managing the interface between load limits of vehicles on infrastructure.
+CM2, CM3 and CM 4 equal M2, M3 and M4 which might be used in some legacy systems which only support two character codes.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="3"/>
+				<xs:enumeration value="A"/>
+				<xs:enumeration value="B"/>
+				<xs:enumeration value="B1"/>
+				<xs:enumeration value="B2"/>
+				<xs:enumeration value="C"/>
+				<xs:enumeration value="C2"/>
+				<xs:enumeration value="C3"/>
+				<xs:enumeration value="C4"/>
+				<xs:enumeration value="CM"/>
+				<xs:enumeration value="CM2"/>
+				<xs:enumeration value="CM3"/>
+				<xs:enumeration value="CM4"/>
+				<xs:enumeration value="CE"/>
+				<xs:enumeration value="D"/>
+				<xs:enumeration value="D2"/>
+				<xs:enumeration value="D3"/>
+				<xs:enumeration value="D4"/>
+				<xs:enumeration value="D5"/>
+				<xs:enumeration value="E"/>
+				<xs:enumeration value="E4"/>
+				<xs:enumeration value="E5"/>
+				<xs:enumeration value="E6"/>
+				<xs:enumeration value="F"/>
+				<xs:enumeration value="G"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RU_DeclarationCode">
+		<xs:annotation>
+			<xs:documentation>Carrier declaration code. </xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Without packing</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Unsatisfactory packaging: ...(give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Insufficient packaging: ... (give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.1">
+					<xs:annotation>
+						<xs:documentation>Goods clearly in poor condition: ... (give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.2">
+					<xs:annotation>
+						<xs:documentation>Goods damaged:(give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.3">
+					<xs:annotation>
+						<xs:documentation>Goods wet: ... (give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4.4">
+					<xs:annotation>
+						<xs:documentation>Goods frozen: ... (give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Loaded by the consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Loaded by the carrier in inclement weather at the request of the consignor </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="7">
+					<xs:annotation>
+						<xs:documentation>Unloaded by the consignee</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="8">
+					<xs:annotation>
+						<xs:documentation>Unloaded by the carrier in ...</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9.1">
+					<xs:annotation>
+						<xs:documentation>Inclement weather, at the request of the consignee Impossible to make the examination in accordance with CIM Article 11 section 3, because of inclement weather </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9.2">
+					<xs:annotation>
+						<xs:documentation>Inclement weather, at the request of the consignee Impossible to make the examination in accordance with CIM Article 11 section 3, because of sealing of the wagon or ITU </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="9.3">
+					<xs:annotation>
+						<xs:documentation>Inclement weather, at the request of the consignee Impossible to make the examination in accordance with CIM Article 11 section 3, because of load in the wagon or ITU inaccessible </xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>Request for examination in accordance with CIM Article 11 section 3 presented late by the consignor</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>Examination not made because of a shortage of resources: ... (give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>Other reserves: ... (give details)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>Code used for declarations, which are no reservations. This code is not included in the official CIT code list and is not to be printed on the paper consignment note.</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="RunningStatus">
+		<xs:annotation>
+			<xs:documentation>Identifies the status of a train related to the actual time at the reporting point.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="00">
+				<xs:annotation>
+					<xs:documentation>Not specified</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation>Arrival at destination</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation>Departure at origin</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation>Intermediate arrival</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="04">
+				<xs:annotation>
+					<xs:documentation>Intermediate departure</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="05">
+				<xs:annotation>
+					<xs:documentation>Pass through</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="06">
+				<xs:annotation>
+					<xs:documentation>NEW CODES: Some IMs are transmitting these codes (6 - 9)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="07">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="08">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="09">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10">
+				<xs:annotation>
+					<xs:documentation>Not specified for wagon</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="11">
+				<xs:annotation>
+					<xs:documentation>Wagon arrival at its destination by train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="12">
+				<xs:annotation>
+					<xs:documentation>Wagon departure from its station of origin by train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="13">
+				<xs:annotation>
+					<xs:documentation>Wagon arrival at reporting point by train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="14">
+				<xs:annotation>
+					<xs:documentation>Wagon departure from reporting point by train (HLR)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="15">
+				<xs:annotation>
+					<xs:documentation>Wagon run-through at reporting point by train</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="16">
+				<xs:annotation>
+					<xs:documentation>Wagon parked at reporting point (MAD)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="17">
+				<xs:annotation>
+					<xs:documentation>Wagon shunted at reporting point</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="18">
+				<xs:annotation>
+					<xs:documentation>Wagon arrived at reporting point</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="19">
+				<xs:annotation>
+					<xs:documentation>Wagon departure from reporting point</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:attribute name="TimingQualifierCode">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="PLA">
+					<xs:annotation>
+						<xs:documentation>Public Location Arrival</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="PLD">
+					<xs:annotation>
+						<xs:documentation>Public Location Departure</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ELA">
+					<xs:annotation>
+						<xs:documentation>Earliest Location Arrival</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ELD">
+					<xs:annotation>
+						<xs:documentation>Earliest Location Departure</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="LLA">
+					<xs:annotation>
+						<xs:documentation>Latest Location Arrival</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="LLD">
+					<xs:annotation>
+						<xs:documentation>Latest Location Departure</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ALA">
+					<xs:annotation>
+						<xs:documentation>Actual Location Arival</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ALD">
+					<xs:annotation>
+						<xs:documentation>Actual Location Departure</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ERT">
+					<xs:annotation>
+						<xs:documentation>Earliest Run Through</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="ART">
+					<xs:annotation>
+						<xs:documentation>Actual Run Through</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="LRT">
+					<xs:annotation>
+						<xs:documentation>Latest Run Through</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:element name="TractionMode">
+		<xs:annotation>
+			<xs:documentation>Identifies the mode of deployment of a traction within a train
+First digit – traction role
+Second digit – position in group of traction units with the same role
+</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:minInclusive value="11"/>
+				<xs:maxInclusive value="99"/>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>Train traction - 1st traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation>Intermediate traction - 1st traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="31">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive - 1st traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="41">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive not coupled - 1st traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="51">
+					<xs:annotation>
+						<xs:documentation>No Leading Engine - 1st traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>Train traction - 2nd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation>Intermediate traction - 2nd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="32">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive - 2nd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="42">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive not coupled - 2nd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="52">
+					<xs:annotation>
+						<xs:documentation>No Leading Engine - 2nd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>Train traction - 3rd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation>Intermediate traction - 3rd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="33">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive - 3rd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="43">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive not coupled - 3rd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="53">
+					<xs:annotation>
+						<xs:documentation>No Leading Engine - 3rd traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>Train traction - 4th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation>Intermediate traction - 4th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="34">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive - 4th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="44">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive not coupled - 4th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="54">
+					<xs:annotation>
+						<xs:documentation>No Leading Engine - 4th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>Train traction - 5th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation>Intermediate traction - 5th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="35">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive - 5th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="45">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive not coupled - 5th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="55">
+					<xs:annotation>
+						<xs:documentation>No Leading Engine - 5th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>Train traction - 6th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation>Intermediate traction - 6th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="36">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive - 6th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="46">
+					<xs:annotation>
+						<xs:documentation>Banking locomotive not coupled - 6th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="56">
+					<xs:annotation>
+						<xs:documentation>No Leading Engine - 6th traction unit in the group</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TractionType">
+		<xs:annotation>
+			<xs:documentation>Identifies the type of a locomotive: 
+First digit:
+“0” = not specified
+“1” = external electric power supply for traction (catenary and pantograph, third rail or other such as maglev)
+“2” = on-board traction power supply for traction without external electrical or other power supply available
+“3” = hybrid traction (both on-board or electric traction available)
+Second digit (definitions in chapter 2.2.2 of the LOC and PAS TSI 1302/2014):
+“0” = not specified
+“1” = locomotive or power unit
+“2” = trainset or multiple unit or railcar
+“3” = shunter
+“4” = on track machine or infrastructure inspection vehicle
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="00"/>
+				<xs:enumeration value="01"/>
+				<xs:enumeration value="02"/>
+				<xs:enumeration value="03"/>
+				<xs:enumeration value="04"/>
+				<xs:enumeration value="10"/>
+				<xs:enumeration value="11"/>
+				<xs:enumeration value="12"/>
+				<xs:enumeration value="13"/>
+				<xs:enumeration value="14"/>
+				<xs:enumeration value="20"/>
+				<xs:enumeration value="21"/>
+				<xs:enumeration value="22"/>
+				<xs:enumeration value="23"/>
+				<xs:enumeration value="24"/>
+				<xs:enumeration value="30"/>
+				<xs:enumeration value="31"/>
+				<xs:enumeration value="32"/>
+				<xs:enumeration value="33"/>
+				<xs:enumeration value="34"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="TrainCC_SystemCode">
+		<xs:annotation>
+			<xs:documentation>Type of Train Control System
+Identifies the command control system of the train in coded values.
+1    ALSN
+2    ASFA
+3    ATB 1st Gen
+4    ATB Next Gen
+5    ATC
+6    ATP
+7    CIR 1 (traction unit is equipped with LZB CIR-ELKE I)
+8    CIR 1+2 (traction unit is equipped with LZB CIR-ELKE I + II)
+9    CIR 2 (traction unit is equipped with LZB CIR-ELKE II)
+10    Crocodile
+11    DAAT
+12    EBICAB 700
+13    EBICAB 900
+14    EFA (all traction units/driving cabins of the train are equipped with an electronic drivers cab display (EFA))
+15    ETCS L1 LS plus EuroZUB
+16    ETCS L1 SRS 2.3.0d (traction unit is equipped with ETCS Level 1 version 2.3.0d)
+17    ETCS L2 SRS 2.3.0d (traction unit is equipped with ETCS Level 2 version 2.3.0d)
+18    ETCS L2 SRS 3.3.0 (traction unit is equipped with ETCS Level 2 version 3.3.0)
+19    ETCS L2 SRS 3.4.0 (traction unit is equipped with ETCS Level 2 version 3.4.0)
+20    ETCS L2 SRS 3.6.0 (traction unit is equipped with ETCS Level 2 version 3.6.0)
+21    ETCS Level 0
+22    ETCS Level 1
+23    ETCS Level 2
+24    ETCS Level 3
+25    ETCS Level NSC
+26    EVM
+27    Indusi 54
+28    Indusi 60 R
+29    Indusi PZ 80
+30    KBS-E
+31    KCVB
+32    KCVP
+33    KVB
+34    KVBP
+35    LS
+36    LS 90
+37    LS I
+38    LS III
+39    LS IV
+40    LZB
+41    Mirel
+42    NEXTEO
+43    PZB
+44    PZB90
+45    SCMT
+46    SHP
+47    SIFA
+48    STM ASFA
+49    STM LZB
+50    TBL 1
+51    TBL 2
+52    TVM 300
+53    TVM 430
+54    ZUB</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+			<xs:enumeration value="07"/>
+			<xs:enumeration value="08"/>
+			<xs:enumeration value="09"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="17"/>
+			<xs:enumeration value="18"/>
+			<xs:enumeration value="19"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="21"/>
+			<xs:enumeration value="22"/>
+			<xs:enumeration value="23"/>
+			<xs:enumeration value="24"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="26"/>
+			<xs:enumeration value="27"/>
+			<xs:enumeration value="28"/>
+			<xs:enumeration value="29"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="31"/>
+			<xs:enumeration value="32"/>
+			<xs:enumeration value="33"/>
+			<xs:enumeration value="34"/>
+			<xs:enumeration value="35"/>
+			<xs:enumeration value="36"/>
+			<xs:enumeration value="37"/>
+			<xs:enumeration value="38"/>
+			<xs:enumeration value="39"/>
+			<xs:enumeration value="40"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="43"/>
+			<xs:enumeration value="44"/>
+			<xs:enumeration value="45"/>
+			<xs:enumeration value="46"/>
+			<xs:enumeration value="47"/>
+			<xs:enumeration value="48"/>
+			<xs:enumeration value="49"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="51"/>
+			<xs:enumeration value="52"/>
+			<xs:enumeration value="53"/>
+			<xs:enumeration value="54"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TrainRunningInterruptionStatus">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TrainInterrupted">
+					<xs:annotation>
+						<xs:documentation/>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="0">
+								<xs:annotation>
+									<xs:documentation>Not Interrupted</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="1">
+								<xs:annotation>
+									<xs:documentation>Interrupted at location (default)</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="2">
+								<xs:annotation>
+									<xs:documentation>Will be interrupted, not yet at location</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TrainRadioSystem">
+		<xs:annotation>
+			<xs:documentation>The on board radio system of the train in coded format</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TrainType">
+		<xs:annotation>
+			<xs:documentation>Element TrainType defines the main purpose of the train in a fundamental way. These purposes are:
+Transport of passengers
+Transport of freight/goods
+Transport of passengers and freight/goods
+Train only for run of traction unit/locomotive
+Train of the IM in case of emergency
+The element is not repeatable, and it does not support any overlapping meaning.
+</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="0">
+					<xs:annotation>
+						<xs:documentation>Other train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Passenger train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Freight train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>Light engine (locomotive train)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>Engineering train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="5">
+					<xs:annotation>
+						<xs:documentation>Emergency train</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="6">
+					<xs:annotation>
+						<xs:documentation>Mixed train (passenger and freight train in combination)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="TypeOfLoadUnitType">
+		<xs:annotation>
+			<xs:documentation>00=unknown, 01=Container, 02=swap bodies, 03=semitrailers, 04=truck</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="00">
+				<xs:annotation>
+					<xs:documentation>unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="01">
+				<xs:annotation>
+					<xs:documentation>Container</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="02">
+				<xs:annotation>
+					<xs:documentation>swap bodies</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="03">
+				<xs:annotation>
+					<xs:documentation>semitrailers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="04">
+				<xs:annotation>
+					<xs:documentation>truck</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TypeOfUsedHybridPowerunit">
+		<xs:annotation>
+			<xs:documentation>information about the type of power unit in case of using a hybrid locomotive</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>electric (pantograph, conductor rail)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>liquid fuel (benzine, diesel, gasoline)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="3">
+					<xs:annotation>
+						<xs:documentation>battery</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="4">
+					<xs:annotation>
+						<xs:documentation>hydrogen</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="TypeOfIMHarmonizationCode">
+		<xs:annotation>
+			<xs:documentation>Enumeration of Type of  IM harmonization: Full, Part
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Full"/>
+			<xs:enumeration value="Part"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfInformationCode">
+		<xs:annotation>
+			<xs:documentation>Enumeration indicating to which process step / process type in the planning does the message belong</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:maxInclusive value="99"/>
+			<xs:minInclusive value="0"/>
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>harmonisation - in process</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>harmonisation - accepted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>harmonisation - rejected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>Request ready</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>path study request</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>pre-arranged path/reserve capacity</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>create offer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8">
+				<xs:annotation>
+					<xs:documentation>coordination update</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="9">
+				<xs:annotation>
+					<xs:documentation>draft offer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10">
+				<xs:annotation>
+					<xs:documentation>draft alternative offer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="11">
+				<xs:annotation>
+					<xs:documentation>observation - in process</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="12">
+				<xs:annotation>
+					<xs:documentation>observation - complete</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="13">
+				<xs:annotation>
+					<xs:documentation>preparation of final offer - in process</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="14">
+				<xs:annotation>
+					<xs:documentation>preparation of final offer - accepted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="15">
+				<xs:annotation>
+					<xs:documentation>preparation of final offer - rejected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="16">
+				<xs:annotation>
+					<xs:documentation>final offer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="17">
+				<xs:annotation>
+					<xs:documentation>final offer - accepted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="18">
+				<xs:annotation>
+					<xs:documentation>alternative offer accepted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="19">
+				<xs:annotation>
+					<xs:documentation>pre-accepted offer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="20">
+				<xs:annotation>
+					<xs:documentation>Final Offer rejected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="21">
+				<xs:annotation>
+					<xs:documentation>no alternative available</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="22">
+				<xs:annotation>
+					<xs:documentation>booked</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="23">
+				<xs:annotation>
+					<xs:documentation>preparation of draft alternative offer is in progress</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="24">
+				<xs:annotation>
+					<xs:documentation>alternative offer triggered by IM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="25">
+				<xs:annotation>
+					<xs:documentation>offer/final offer rejected (without revision)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="26">
+				<xs:annotation>
+					<xs:documentation>alternative offer rejected (without revision)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="27">
+				<xs:annotation>
+					<xs:documentation>offer/final offer rejected (revision required)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="28">
+				<xs:annotation>
+					<xs:documentation>alternative offer rejected (revision required)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="29">
+				<xs:annotation>
+					<xs:documentation>withdrawal</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="30">
+				<xs:annotation>
+					<xs:documentation>Create Dossier</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="31">
+				<xs:annotation>
+					<xs:documentation>Close Dossier</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="32">
+				<xs:annotation>
+					<xs:documentation>Path canceled full</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="33">
+				<xs:annotation>
+					<xs:documentation>Path canceled partial</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40">
+				<xs:annotation>
+					<xs:documentation>Fully Assembled Path (FAP, constructed path)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="42">
+				<xs:annotation>
+					<xs:documentation>Preparation of draft offer – accepted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="43">
+				<xs:annotation>
+					<xs:documentation>Preparation of draft offer – rejected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="44">
+				<xs:annotation>
+					<xs:documentation>Draft offer rejected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="45">
+				<xs:annotation>
+					<xs:documentation>Draft no alternative available</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="50">
+				<xs:annotation>
+					<xs:documentation>activate path (utilisation notification)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="51">
+				<xs:annotation>
+					<xs:documentation>deactivate path (utilisation notification)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="52">
+				<xs:annotation>
+					<xs:documentation>confirmation of utilisation notification</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="53">
+				<xs:annotation>
+					<xs:documentation>Path and train cancelled </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="65">
+				<xs:annotation>
+					<xs:documentation>Preparation of alternative offer in progress due to route update (used in PathNotAvailableMessage)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="66">
+				<xs:annotation>
+					<xs:documentation>Booked after route update (used in PathDetailsMessage)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TypeOfRemovableAccessories">
+		<xs:annotation>
+			<xs:documentation>Specification of removable accessory.
+Should be added to Code List. Values refer to UIC Leaflet 920-13</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="01">
+					<xs:annotation>
+						<xs:documentation>Removable stanchion</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="02">
+					<xs:annotation>
+						<xs:documentation>Removable side flap of flat wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="03">
+					<xs:annotation>
+						<xs:documentation>Removable end flap of flat wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="04">
+					<xs:annotation>
+						<xs:documentation>Removable side rail</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="05">
+					<xs:annotation>
+						<xs:documentation>Removable intermediate upright for securing the load</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="06">
+					<xs:annotation>
+						<xs:documentation>Stanchion chain</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="07">
+					<xs:annotation>
+						<xs:documentation>Removable handle and wheel for winch on car-carrying wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="08">
+					<xs:annotation>
+						<xs:documentation>Swivelling bolster (with stanchions)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="09">
+					<xs:annotation>
+						<xs:documentation>Coupling rod (rigid coupling)</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="10">
+					<xs:annotation>
+						<xs:documentation>Ice bunker</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="11">
+					<xs:annotation>
+						<xs:documentation>Ice bunker screen</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="12">
+					<xs:annotation>
+						<xs:documentation>Ice bunker frame</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="13">
+					<xs:annotation>
+						<xs:documentation>Trestle or bar with hooks for hanging meat</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="14">
+					<xs:annotation>
+						<xs:documentation>Movable cross-member of wagon with low loading plane</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="15">
+					<xs:annotation>
+						<xs:documentation>Removable support</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="16">
+					<xs:annotation>
+						<xs:documentation>Mooring cross-member on wagon for special loads</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="17">
+					<xs:annotation>
+						<xs:documentation>Movable floor panel on wagon for special loads</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="18">
+					<xs:annotation>
+						<xs:documentation>Scotch</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="19">
+					<xs:annotation>
+						<xs:documentation>Skid bar with or without shoes on car-carrying wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="20">
+					<xs:annotation>
+						<xs:documentation>Mooring strap on car-carrying wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="21">
+					<xs:annotation>
+						<xs:documentation>Beam for movable ramp on car-carrying wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="22">
+					<xs:annotation>
+						<xs:documentation>Spare heating half-coupling</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="23">
+					<xs:annotation>
+						<xs:documentation>Fire extinguisher</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="24">
+					<xs:annotation>
+						<xs:documentation>Wheel scotches (for cars) on car-carrying wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="25">
+					<xs:annotation>
+						<xs:documentation>Gangway loading ramp on car-carrying wagon</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="26">
+					<xs:annotation>
+						<xs:documentation>Metal cradles for rolls of metal sheeting</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="27">
+					<xs:annotation>
+						<xs:documentation>Panel for covering markings</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="28">
+					<xs:annotation>
+						<xs:documentation>Loading frame for special types of goods</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="29">
+					<xs:annotation>
+						<xs:documentation>Headstock for "rolling roads"</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="99">
+					<xs:annotation>
+						<xs:documentation>Other wagon accessories</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="TypeOfRequestCode">
+		<xs:annotation>
+			<xs:documentation>Enumeration for the 3 different basic types of the planning processes types in the planning: Study (1), Request (2), Modification (3)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:short">
+			<xs:minInclusive value="1"/>
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Study</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Request</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>Modification</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfRUHarmonizationCode">
+		<xs:annotation>
+			<xs:documentation>Type of RU  harmonization: Full, Part, None.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Full"/>
+			<xs:enumeration value="Part"/>
+			<xs:enumeration value="None"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UnitType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of a Transportation unit.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Container</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Other intermodal traffic</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>Rolling road (RR)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>Semi-trailer on bogies</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10">
+				<xs:annotation>
+					<xs:documentation>Container less than 20’</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="11">
+				<xs:annotation>
+					<xs:documentation>Container 20’</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="12">
+				<xs:annotation>
+					<xs:documentation>Container 30’</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="13">
+				<xs:annotation>
+					<xs:documentation>Container 40’</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40">
+				<xs:annotation>
+					<xs:documentation>Semi-trailer truck/articulated lorry</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="41">
+				<xs:annotation>
+					<xs:documentation>Road tractor</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="42">
+				<xs:annotation>
+					<xs:documentation>Lorry without trailer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="43">
+				<xs:annotation>
+					<xs:documentation>Lorry with trailer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="50">
+				<xs:annotation>
+					<xs:documentation>Semi-trailer/road semi-trailer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="51">
+				<xs:annotation>
+					<xs:documentation>Swap bodies</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="WheelSetTransformationMethod">
+		<xs:annotation>
+			<xs:documentation>Description of the wheel set transformation method for wagons with a changeable wheel set gauge.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="1">
+					<xs:annotation>
+						<xs:documentation>Automatic</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+				<xs:enumeration value="2">
+					<xs:annotation>
+						<xs:documentation>Bogie/axle change</xs:documentation>
+					</xs:annotation>
+				</xs:enumeration>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
