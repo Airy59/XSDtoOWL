@@ -152,9 +152,13 @@ transformer.register_rule(MyCustomRule())
 
 The framework provides a specialized rule for handling xs:choice elements in XSD schemas. The `ChoiceElementPropertyRule` transforms xs:choice elements into a set of OWL properties with constraints to ensure that exactly one of the properties is used.
 
-#### Approach
+#### Approaches
 
-The approach used for handling xs:choice elements is based on OWL disjointness and cardinality constraints:
+The framework supports two approaches for handling xs:choice elements, depending on the types of elements in the choice:
+
+##### Approach 1: For Simple Types
+
+For xs:choice elements containing elements of simple type or numeric type, the approach is based on OWL disjointness and cardinality constraints:
 
 1. Each option in the choice is represented as a separate property
 2. All properties share the same domain (the parent class)
@@ -162,6 +166,45 @@ The approach used for handling xs:choice elements is based on OWL disjointness a
 4. Comments are added to each property to indicate that it's part of a choice constraint
 
 This approach is particularly well-suited for choices between elements of simple type or numeric type, as it maintains the mutual exclusivity constraint of xs:choice while working within OWL's capabilities.
+
+##### Approach 2: For Complex Types
+
+For xs:choice elements containing elements of complex type, a class hierarchy approach is more appropriate:
+
+1. Create a superclass as the property range with the naming pattern: `<containing element name>_choice_<disambiguation digit>`
+2. Make all choice options subclasses of that superclass
+3. Create a single object property with the superclass as its range
+4. Each subclass represents one option in the choice
+
+This approach provides a more elegant solution for complex types, as it leverages OWL's class hierarchy to represent the choice constraint.
+
+Example:
+
+```turtle
+:PaymentType a owl:Class ;
+    rdfs:label "PaymentType" .
+
+:paymentMethod a owl:ObjectProperty ;
+    rdfs:domain :PaymentType ;
+    rdfs:range :PaymentType_choice_1 ;
+    rdfs:label "paymentMethod" .
+
+:PaymentType_choice_1 a owl:Class ;
+    rdfs:label "PaymentType_choice_1" ;
+    rdfs:comment "Superclass for xs:choice options" .
+
+:CreditCardType a owl:Class ;
+    rdfs:subClassOf :PaymentType_choice_1 ;
+    rdfs:label "CreditCardType" .
+
+:BankTransferType a owl:Class ;
+    rdfs:subClassOf :PaymentType_choice_1 ;
+    rdfs:label "BankTransferType" .
+
+:PayPalType a owl:Class ;
+    rdfs:subClassOf :PaymentType_choice_1 ;
+    rdfs:label "PayPalType" .
+```
 
 #### Implementation
 
