@@ -168,11 +168,19 @@ For xs:choice elements containing elements of simple type or numeric type, the a
 2. All properties share the same domain (the parent class)
 3. Each property has a range corresponding to its type
 4. Comments are added to each property to indicate that it's part of a choice constraint
-5. Unicity constraints are implied through documentation, as OWL does not directly support mutual exclusivity between properties
 
-This approach is particularly well-suited for choices between elements of simple type or numeric type, as it maintains the mutual exclusivity constraint of xs:choice while working within OWL's capabilities.
+This approach is particularly well-suited for choices between elements of simple type or numeric type, but has limitations in expressing the mutual exclusivity constraint.
 
-To enforce the unicity constraint in applications consuming the ontology, additional validation rules would need to be implemented, as standard OWL reasoners cannot enforce the constraint that exactly one of several properties must be used.
+**Important Note on Mutual Exclusivity**: OWL does not provide a direct mechanism to express that exactly one of several properties must have a value while the others must not. Unlike classes (which can use owl:disjointWith), properties in OWL cannot be declared mutually exclusive. This is a fundamental limitation of OWL's expressivity.
+
+Some alternatives to consider:
+
+1. **OWL 2 Property Chains**: Complex property chains can approximate some constraints but not perfectly
+2. **SWRL Rules**: Rules can be used to express constraints outside of OWL proper
+3. **SHACL**: Shape Constraint Language can complement OWL with validation rules
+4. **Application Logic**: Implement validation in the application consuming the ontology
+
+For the most accurate representation, the class hierarchy approach (Approach 2) is generally preferred even for simple types when mutual exclusivity must be strictly enforced within the ontology itself.
 
 ##### Approach 2: For Complex Types
 
