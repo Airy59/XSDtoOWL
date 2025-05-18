@@ -313,6 +313,14 @@ The framework supports various output formats using rdflib serialization:
     - The framework includes post-processing to fix properties that are both datatype and object properties
     - Configure special cases in xsd_to_owl/config/special_cases.py
 
+## Observations about the output files
+
+### No domain?
+
+You may notice that some properties have no domain:
+- This is formally acceptable, in RDF/OWL. It does not prevent using the property; the only consequence is, no inference can be made about the individual having that property (apart being an instance of owl:Thing like any OWL individual).
+- Such cases occur when elements are defined at the top level in the XSD schema, but referenced nowhere. Such an orphaned element is not good practice, and might be a leftover from previous versions.
+
 ## Future Development
 
 - Support for more advanced XSD features
