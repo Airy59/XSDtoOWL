@@ -212,11 +212,13 @@ def post_process_graph(graph):
     
     This function looks for properties that are both datatype and object properties,
     and fixes them based on the special cases configuration and property types.
+    It also fixes properties with multiple XSD ranges.
     
     Args:
         graph: The RDF graph to process
     """
     import re
+    import collections
     # Import special cases configuration
     from xsd_to_owl.config.special_cases import NEVER_OBJECT_PROPERTIES
     
@@ -229,11 +231,45 @@ def post_process_graph(graph):
         if (s, rdflib.RDF.type, rdflib.OWL.ObjectProperty) in graph:
             problematic_properties.append(s)
     
+    # Find properties with multiple XSD ranges
+    properties_with_multiple_ranges = []
+    for s in graph.subjects(rdflib.RDF.type, rdflib.OWL.DatatypeProperty):
+        # Get all XSD ranges for this property
+        xsd_ranges = []
+        for _, _, range_o in graph.triples((s, rdflib.RDFS.range, None)):
+            if str(range_o).startswith(str(rdflib.XSD)):
+                xsd_ranges.append(range_o)
+        
+        # If there are multiple XSD ranges, add to the list
+        if len(xsd_ranges) > 1:
+            properties_with_multiple_ranges.append((s, xsd_ranges))
+    
+    # Process properties with multiple XSD ranges
+    if properties_with_multiple_ranges:
+        logging.info(f"Found {len(properties_with_multiple_ranges)} properties with multiple XSD ranges")
+        
+        for s, ranges in properties_with_multiple_ranges:
+            # Get property name
+            property_name = None
+            for _, _, label_o in graph.triples((s, rdflib.RDFS.label, None)):
+                property_name = str(label_o)
+                break
+            
+            if not property_name:
+                continue
+                
+            logging.info(f"  Property {property_name} has multiple XSD ranges: {', '.join(str(r) for r in ranges)}")
+            
+            # Keep only xsd:string if both xsd:string and xsd:token are present
+            if rdflib.XSD.string in ranges and rdflib.XSD.token in ranges:
+                logging.info(f"  Removing xsd:token range from {property_name} (keeping xsd:string)")
+                graph.remove((s, rdflib.RDFS.range, rdflib.XSD.token))
+    
+    # Process properties with inconsistent types
     if not problematic_properties:
         logging.info("No properties with inconsistent types found")
-        return
-    
-    logging.info(f"Found {len(problematic_properties)} properties with inconsistent types")
+    else:
+        logging.info(f"Found {len(problematic_properties)} properties with inconsistent types")
     
     for s in problematic_properties:
         # Get property name
