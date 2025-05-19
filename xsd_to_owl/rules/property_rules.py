@@ -749,8 +749,16 @@ class ElementReferenceRule(XSDVisitor):
     @check_already_processed
     def matches(self, element, context):
         # Match elements with 'ref' attribute
-        return (element.tag == f"{XS_NS}element" and
-                'ref' in element.attrib)
+        if element.tag == f"{XS_NS}element" and 'ref' in element.attrib:
+            ref_name = element.get('ref')
+            print(f"DEBUG: ElementReferenceRule.matches: Found element with ref='{ref_name}'")
+            
+            # Check if it's inside a choice element
+            if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
+                print(f"DEBUG: ElementReferenceRule.matches: Element {ref_name} is inside a choice element")
+            
+            return True
+        return False
 
     def _find_referenced_element(self, element, context):
         """Find the element referenced by a ref attribute."""
@@ -833,11 +841,19 @@ class ElementReferenceRule(XSDVisitor):
                 
                 # Store the reference in the global dictionary
                 property_name = lower_case_initial(ref_name)
+                
+                # Store both the original element name and the lowercase property name
+                CHOICE_ELEMENT_REFS[ref_name] = {
+                    'parent_name': parent_name,
+                    'parent_uri': str(parent_uri)
+                }
+                
                 CHOICE_ELEMENT_REFS[property_name] = {
                     'parent_name': parent_name,
                     'parent_uri': str(parent_uri)
                 }
-                print(f"DEBUG: Stored reference for {property_name} with parent {parent_name}")
+                
+                print(f"DEBUG: Stored reference for element {ref_name} and property {property_name} with parent {parent_name}")
                 
                 # Ensure the parent class exists
                 if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
@@ -1744,6 +1760,7 @@ class DomainFixerRule(XSDVisitor):
                 if (s, context.RDFS.domain, None) not in context.graph:
                     # Get property name
                     property_name = str(s).split('#')[-1]
+                    print(f"DEBUG: Checking property {property_name} for domain assignment")
                     
                     # Check if we have information about this property in CHOICE_ELEMENT_REFS
                     if property_name in CHOICE_ELEMENT_REFS:
@@ -1759,6 +1776,23 @@ class DomainFixerRule(XSDVisitor):
                         context.graph.add((s, context.RDFS.domain, parent_uri))
                         domains_added += 1
                         print(f"Added domain {parent_info['parent_name']} to property {property_name}")
+                    else:
+                        # Try with the capitalized version of the property name
+                        element_name = property_name[0].upper() + property_name[1:]
+                        print(f"DEBUG: Trying with capitalized element name {element_name}")
+                        if element_name in CHOICE_ELEMENT_REFS:
+                            parent_info = CHOICE_ELEMENT_REFS[element_name]
+                            parent_uri = URIRef(parent_info['parent_uri'])
+                            
+                            # Ensure the parent class exists
+                            if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                                context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                                context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_info['parent_name'])))
+                            
+                            # Set the domain
+                            context.graph.add((s, context.RDFS.domain, parent_uri))
+                            domains_added += 1
+                            print(f"Added domain {parent_info['parent_name']} to property {property_name} (using element name {element_name})")
 
         # Debug output for CHOICE_ELEMENT_REFS
         if CHOICE_ELEMENT_REFS:
