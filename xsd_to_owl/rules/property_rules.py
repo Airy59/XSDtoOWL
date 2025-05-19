@@ -756,6 +756,22 @@ class ElementReferenceRule(XSDVisitor):
             # Check if it's inside a choice element
             if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
                 print(f"DEBUG: ElementReferenceRule.matches: Element {ref_name} is inside a choice element")
+                
+                # Print the parent hierarchy
+                parent = element.getparent()
+                hierarchy = []
+                while parent is not None:
+                    if parent.tag == f"{XS_NS}element" and parent.get('name'):
+                        hierarchy.append(parent.get('name'))
+                    elif parent.tag == f"{XS_NS}choice":
+                        hierarchy.append("choice")
+                    elif parent.tag == f"{XS_NS}complexType":
+                        hierarchy.append("complexType")
+                    elif parent.tag == f"{XS_NS}sequence":
+                        hierarchy.append("sequence")
+                    parent = parent.getparent()
+                
+                print(f"DEBUG: Parent hierarchy for {ref_name}: {' -> '.join(reversed(hierarchy))}")
             
             return True
         return False
@@ -881,6 +897,7 @@ class ElementReferenceRule(XSDVisitor):
     def transform(self, element, context):
         # Get the referenced element name
         ref_name = element.get('ref')
+        print(f"DEBUG: ElementReferenceRule.transform: Processing element with ref='{ref_name}'")
         
         # Find the referenced element definition
         ref_element = self._find_referenced_element(element, context)
@@ -890,6 +907,7 @@ class ElementReferenceRule(XSDVisitor):
 
         # Determine if referenced element is simple or complex type
         element_type = self._get_element_type(ref_element)
+        print(f"DEBUG: ElementReferenceRule.transform: Element {ref_name} has type {element_type}")
 
         # Create appropriate property based on element type
         if element_type == "simple":
@@ -899,10 +917,13 @@ class ElementReferenceRule(XSDVisitor):
             
             # Special handling for elements inside choice
             if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
+                print(f"DEBUG: ElementReferenceRule.transform: Element {ref_name} is inside a choice element, calling _handle_element_in_choice")
                 domain_set = self._handle_element_in_choice(element, property_uri, context)
+                print(f"DEBUG: ElementReferenceRule.transform: _handle_element_in_choice returned {domain_set}")
                 if domain_set:
                     # If domain was set by _handle_element_in_choice, we can skip the rest of the property creation
                     # and just add the range
+                    print(f"DEBUG: ElementReferenceRule.transform: Adding range {range_uri} to property {ref_name}")
                     context.graph.add((property_uri, context.RDFS.range, range_uri))
                     
                     # Add label
