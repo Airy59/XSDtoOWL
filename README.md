@@ -29,7 +29,7 @@ XSD files: depending on source.
 
 # Status
 
-As of May 18, 2025:
+As of May 19, 2025:
 
 * the rule-based transformation basically works.
 * the set of rules is not complete.
