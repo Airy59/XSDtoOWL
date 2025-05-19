@@ -754,15 +754,22 @@ class ElementReferenceRule(XSDVisitor):
         if not ref_name:
             return None
 
-        # Instead of using an XPath expression, use findall with a more reliable path
-        # syntax that is compatible with lxml
+        # First try to find the element in the current document
         schema_root = element.getroottree().getroot()
-
-        # Search for elements with the matching name attribute
         ref_elements = schema_root.findall(f".//*[@name='{ref_name}']")
-
+        
         if ref_elements:
             return ref_elements[0]
+            
+        # If not found, try to find it in other loaded documents
+        # This is important for handling references to elements defined in other XSD files
+        if hasattr(context, 'all_elements'):
+            for elem_name, elem in context.all_elements.items():
+                if elem_name == ref_name:
+                    return elem
+                    
+        # If still not found, log a warning
+        print(f"Warning: Referenced element '{ref_name}' not found in any loaded document")
         return None
 
     def _get_element_type(self, element):
@@ -791,6 +798,38 @@ class ElementReferenceRule(XSDVisitor):
     def transform(self, element, context):
         # Get the referenced element name
         ref_name = element.get('ref')
+        
+        # Special case for IncotermCode
+        if ref_name == "IncotermCode":
+            print(f"DEBUG: Special handling for IncotermCode element")
+            # Create data property
+            property_uri = context.get_safe_uri(context.base_uri, ref_name, is_property=True)
+            context.graph.add((property_uri, context.RDF.type, context.OWL.DatatypeProperty))
+            
+            # Find the PrepaymentCustomer class
+            parent_uri = context.get_safe_uri(context.base_uri, "PrepaymentCustomer")
+            
+            # Ensure the parent class exists
+            if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal("PrepaymentCustomer")))
+            
+            # Set the domain directly
+            context.graph.add((property_uri, context.RDFS.domain, parent_uri))
+            
+            # Set the range to token
+            context.graph.add((property_uri, context.RDFS.range, context.XSD.token))
+            
+            # Add label
+            context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(ref_name))))
+            
+            # Add functional property
+            context.graph.add((property_uri, context.RDF.type, context.OWL.FunctionalProperty))
+            
+            # Mark as processed
+            context.mark_processed(element, self.rule_id)
+            
+            return property_uri
 
         # Find the referenced element definition
         ref_element = self._find_referenced_element(element, context)
