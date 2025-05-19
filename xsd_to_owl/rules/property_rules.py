@@ -1818,8 +1818,6 @@ class DomainFixerRule(XSDVisitor):
 3. **Comprehensive Domain Collection**: The runs at the end of processing and adds all the domains gathered by the . `DomainFixerRule``ReferenceTrackingRule`
 4. **Union Domains**: When a property can be used in multiple classes, the domain is represented as a UNION of those classes.
 """
-    # Import URIRef
-    from rdflib import URIRef
 
     @property
     def rule_id(self):
@@ -1909,7 +1907,7 @@ class DomainFixerRule(XSDVisitor):
                     # Check if we have information about this property in CHOICE_ELEMENT_REFS
                     if property_name in CHOICE_ELEMENT_REFS:
                         parent_info = CHOICE_ELEMENT_REFS[property_name]
-                        parent_uri = URIRef(parent_info['parent_uri'])
+                        parent_uri = rdflib.URIRef(parent_info['parent_uri'])
                         
                         # Ensure the parent class exists
                         if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
@@ -1926,7 +1924,7 @@ class DomainFixerRule(XSDVisitor):
                         print(f"DEBUG: Trying with capitalized element name {element_name}")
                         if element_name in CHOICE_ELEMENT_REFS:
                             parent_info = CHOICE_ELEMENT_REFS[element_name]
-                            parent_uri = URIRef(parent_info['parent_uri'])
+                            parent_uri = rdflib.URIRef(parent_info['parent_uri'])
                             
                             # Ensure the parent class exists
                             if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
