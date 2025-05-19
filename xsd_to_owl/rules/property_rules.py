@@ -813,7 +813,26 @@ class ElementReferenceRule(XSDVisitor):
                 choice_element = element.getparent()
                 print(f"DEBUG: Element {ref_name} is inside a choice element")
                 
-                # Set domain based on the choice's parent element
+                # Find the parent of the choice element (which should be a complexType)
+                complex_type_parent = choice_element.getparent()
+                if complex_type_parent is not None and complex_type_parent.tag == f"{XS_NS}complexType":
+                    # Find the parent of the complexType (which should be an element)
+                    element_parent = complex_type_parent.getparent()
+                    if element_parent is not None and element_parent.tag == f"{XS_NS}element" and element_parent.get('name'):
+                        parent_name = element_parent.get('name')
+                        parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                        print(f"DEBUG: Found parent element {parent_name} for choice containing {ref_name}")
+                        
+                        # Ensure the parent class exists
+                        if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                            context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                            context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
+                        
+                        # Set the domain directly
+                        context.graph.add((property_uri, context.RDFS.domain, parent_uri))
+                        return
+                
+                # If we couldn't find a direct parent, try the normal approach with the choice element
                 set_property_domain(context, property_uri, choice_element)
             else:
                 # Normal domain setting
@@ -858,7 +877,26 @@ class ElementReferenceRule(XSDVisitor):
                 choice_element = element.getparent()
                 print(f"DEBUG: Element {ref_name} is inside a choice element")
                 
-                # Set domain based on the choice's parent element
+                # Find the parent of the choice element (which should be a complexType)
+                complex_type_parent = choice_element.getparent()
+                if complex_type_parent is not None and complex_type_parent.tag == f"{XS_NS}complexType":
+                    # Find the parent of the complexType (which should be an element)
+                    element_parent = complex_type_parent.getparent()
+                    if element_parent is not None and element_parent.tag == f"{XS_NS}element" and element_parent.get('name'):
+                        parent_name = element_parent.get('name')
+                        parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                        print(f"DEBUG: Found parent element {parent_name} for choice containing {ref_name}")
+                        
+                        # Ensure the parent class exists
+                        if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                            context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                            context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
+                        
+                        # Set the domain directly
+                        context.graph.add((property_uri, context.RDFS.domain, parent_uri))
+                        return
+                
+                # If we couldn't find a direct parent, try the normal approach with the choice element
                 set_property_domain(context, property_uri, choice_element)
             else:
                 # Normal domain setting
