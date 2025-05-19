@@ -1818,6 +1818,8 @@ class DomainFixerRule(XSDVisitor):
 3. **Comprehensive Domain Collection**: The runs at the end of processing and adds all the domains gathered by the . `DomainFixerRule``ReferenceTrackingRule`
 4. **Union Domains**: When a property can be used in multiple classes, the domain is represented as a UNION of those classes.
 """
+    # Import URIRef
+    from rdflib import URIRef
 
     @property
     def rule_id(self):
