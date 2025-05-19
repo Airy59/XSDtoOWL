@@ -110,47 +110,96 @@ class SimpleTypePropertyRule(XSDVisitor):
 
 def find_parent_element(element, context):
     """
-    Find the parent complex type for an element.
+    Find the parent complex type or element for an element.
     Returns the URI of the parent class, ensuring it exists in the graph.
+    
+    This function handles nested anonymous elements and choice elements,
+    traversing up the tree until it finds a suitable named parent.
     """
-    # Navigate up until we find a complex type
+    # Navigate up until we find a suitable parent
     current = element
+    last_named_element = None
+    
     while True:
         parent = current.getparent()
         if parent is None:
+            # If we reached the root without finding a named parent,
+            # but we did find a named element earlier, use that
+            if last_named_element is not None:
+                parent_name = last_named_element.get('name')
+                parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                
+                # Ensure the class exists
+                if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                    context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                    context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
+                    context.graph.add((parent_uri, context.RDFS.comment,
+                                      rdflib.Literal(f"Auto-created by property rule as domain")))
+                
+                return parent_uri
             return None
 
-        parent_name = None
-        if parent.tag == f"{XS_NS}complexType" and parent.get('name'):
-            # Found named complex type parent
-            parent_name = parent.get('name')
-        elif parent.tag == f"{XS_NS}element" and parent.get('name'):
-            # Found parent element with name
-            # (this covers the case of anonymous complex types)
+        # Check if this is a named element
+        if parent.tag == f"{XS_NS}element" and parent.get('name'):
+            last_named_element = parent
+            
+            # If this element has a complex type child, it's a suitable parent
+            has_complex_type = False
             for child in parent:
                 if child.tag == f"{XS_NS}complexType":
-                    parent_name = parent.get('name')
+                    has_complex_type = True
                     break
-
-        if parent_name:
-            # Generate the URI for this class
+            
+            if has_complex_type:
+                parent_name = parent.get('name')
+                parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                
+                # Ensure the class exists
+                if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                    print(f"Warning: find_parent_element needs to create class '{parent_name}' as domain")
+                    context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                    context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
+                    context.graph.add((parent_uri, context.RDFS.comment,
+                                      rdflib.Literal(f"Auto-created by property rule as domain")))
+                
+                return parent_uri
+        
+        # Check if this is a named complex type
+        elif parent.tag == f"{XS_NS}complexType" and parent.get('name'):
+            parent_name = parent.get('name')
             parent_uri = context.get_safe_uri(context.base_uri, parent_name)
-
-            # Check if this class already exists
-            class_exists = (parent_uri, context.RDF.type, context.OWL.Class) in context.graph
-
-            if not class_exists:
-                # DEBUG output
+            
+            # Ensure the class exists
+            if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
                 print(f"Warning: find_parent_element needs to create class '{parent_name}' as domain")
-
-                # Create the class in the graph
                 context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
                 context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
                 context.graph.add((parent_uri, context.RDFS.comment,
-                                   rdflib.Literal(f"Auto-created by property rule as domain")))
-
+                                  rdflib.Literal(f"Auto-created by property rule as domain")))
+            
             return parent_uri
-
+        
+        # Special handling for choice elements
+        elif parent.tag == f"{XS_NS}choice":
+            # For choice elements, we need to continue up the tree
+            # but also check if we're inside a named element
+            choice_parent = parent.getparent()
+            if choice_parent is not None and choice_parent.tag == f"{XS_NS}complexType":
+                complex_parent = choice_parent.getparent()
+                if complex_parent is not None and complex_parent.tag == f"{XS_NS}element" and complex_parent.get('name'):
+                    parent_name = complex_parent.get('name')
+                    parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                    
+                    # Ensure the class exists
+                    if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                        print(f"Warning: find_parent_element needs to create class '{parent_name}' as domain (from choice)")
+                        context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                        context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
+                        context.graph.add((parent_uri, context.RDFS.comment,
+                                          rdflib.Literal(f"Auto-created by property rule as domain")))
+                    
+                    return parent_uri
+        
         current = parent
 
 
@@ -757,7 +806,18 @@ class ElementReferenceRule(XSDVisitor):
             # Create data property
             property_uri = context.get_safe_uri(context.base_uri, ref_name, is_property=True)
             context.graph.add((property_uri, context.RDF.type, context.OWL.DatatypeProperty))
-            set_property_domain(context, property_uri, element)
+            
+            # Special handling for elements inside choice
+            if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
+                # For elements inside choice, we need to find the containing element
+                choice_element = element.getparent()
+                print(f"DEBUG: Element {ref_name} is inside a choice element")
+                
+                # Set domain based on the choice's parent element
+                set_property_domain(context, property_uri, choice_element)
+            else:
+                # Normal domain setting
+                set_property_domain(context, property_uri, element)
 
             # Determine range
             type_attr = ref_element.get('type')
@@ -791,7 +851,19 @@ class ElementReferenceRule(XSDVisitor):
             class_uri = context.get_safe_uri(context.base_uri, ref_name)
 
             context.graph.add((property_uri, context.RDF.type, context.OWL.ObjectProperty))
-            set_property_domain(context, property_uri, element)
+            
+            # Special handling for elements inside choice
+            if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
+                # For elements inside choice, we need to find the containing element
+                choice_element = element.getparent()
+                print(f"DEBUG: Element {ref_name} is inside a choice element")
+                
+                # Set domain based on the choice's parent element
+                set_property_domain(context, property_uri, choice_element)
+            else:
+                # Normal domain setting
+                set_property_domain(context, property_uri, element)
+                
             context.graph.add((property_uri, context.RDFS.range, class_uri))
 
         # Add label
