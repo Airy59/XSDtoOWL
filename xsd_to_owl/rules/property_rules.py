@@ -814,7 +814,8 @@ class ElementReferenceRule(XSDVisitor):
         """
         choice_element = element.getparent()
         ref_name = element.get('ref')
-        print(f"DEBUG: Element {ref_name} is inside a choice element")
+        property_name = lower_case_initial(ref_name)
+        print(f"DEBUG: Element {ref_name} (property {property_name}) is inside a choice element")
         
         # Find the parent of the choice element (which should be a complexType)
         complex_type_parent = choice_element.getparent()
@@ -1759,6 +1760,14 @@ class DomainFixerRule(XSDVisitor):
                         domains_added += 1
                         print(f"Added domain {parent_info['parent_name']} to property {property_name}")
 
+        # Debug output for CHOICE_ELEMENT_REFS
+        if CHOICE_ELEMENT_REFS:
+            print(f"DEBUG: CHOICE_ELEMENT_REFS contains {len(CHOICE_ELEMENT_REFS)} entries:")
+            for prop_name, info in CHOICE_ELEMENT_REFS.items():
+                print(f"  - {prop_name}: parent={info['parent_name']}")
+        else:
+            print("DEBUG: CHOICE_ELEMENT_REFS is empty")
+            
         print(f"Domain fixer added {domains_added} direct domains and {union_domains_created} union domains")
         return None
         
