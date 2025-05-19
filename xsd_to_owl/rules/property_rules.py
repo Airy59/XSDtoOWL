@@ -2069,7 +2069,20 @@ class PropertyTypeFixerRule(XSDVisitor):
                 # Keep only xsd:string if both xsd:string and xsd:token are present
                 if context.XSD.string in ranges and context.XSD.token in ranges:
                     print(f"  Removing xsd:token range from {property_name} (keeping xsd:string)")
+                    
+                    # Debug: print all triples for this property
+                    print(f"  DEBUG: All triples for property {property_name}:")
+                    for p, o in context.graph.predicate_objects(s):
+                        print(f"    {p} -> {o}")
+                    
+                    # Remove the token range
                     context.graph.remove((s, context.RDFS.range, context.XSD.token))
+                    
+                    # Debug: verify removal
+                    ranges_after = []
+                    for _, _, range_o in context.graph.triples((s, context.RDFS.range, None)):
+                        ranges_after.append(range_o)
+                    print(f"  DEBUG: Ranges after removal: {', '.join(str(r) for r in ranges_after)}")
         
         for s in problematic_properties:
             # Get property name
