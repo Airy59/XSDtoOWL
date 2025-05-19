@@ -20,6 +20,8 @@ Given the small size of XSDs and small number of variants to be transformed, exe
 
 In this situation, none of the more exotic tools showed decisive advantages over Python, not even conciseness (Python has great libraries, which helps), so we sticked with Python.
 
+For testing purposes, the transformation code was applied to the TAF TSI XSD, version 3.5. The file is publicly available, and copied here for convenience. It is long and complex enough to serve as a test case.
+
 # License
 
 Code: EUPL 1.2
@@ -32,7 +34,7 @@ As of May 18, 2025:
 * the rule-based transformation basically works.
 * the set of rules is not complete.
   * multiplicities are not transformed yet (except 0..1 that translates to owl:FunctionalProperty); generation of SHACL shapes should be envisaged here;
-  * some XSD terms (such as xs:choice) are not taken into account,
+  * some XSD terms might not yet be taken into account.
 * no user interface is yet available to select rules or groups of rules. Such tuning currently implies editing a .py file.
 
 # Usage
