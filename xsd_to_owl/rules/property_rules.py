@@ -1617,51 +1617,115 @@ class ChoiceElementPropertyRule(XSDVisitor):
         property_uris = []
         for child in child_elements:
             name = child.get('name')
-            if not name:
-                logging.warning(f"Child element in choice has no name, skipping")
+            ref_name = child.get('ref')
+            
+            if not name and not ref_name:
+                logging.warning(f"Child element in choice has no name or ref, skipping")
                 continue
-                
+            
+            # Use name or ref_name
+            element_name = name if name else ref_name
+            print(f"DEBUG: Processing choice element child: {element_name} (name={name}, ref={ref_name})")
+            
             # Create property URI
-            property_uri = context.get_safe_uri(context.base_uri, name, is_property=True)
+            property_uri = context.get_safe_uri(context.base_uri, element_name, is_property=True)
             property_uris.append(property_uri)
             
             # Determine property type and range based on child element
-            type_name = child.get('type')
-            is_datatype = False
+            element_name = name if name else ref_name
             
-            if type_name:
-                # Check if it's a simple type
-                if ':' in type_name or type_name.startswith("Numeric") or "Decimal" in type_name:
-                    is_datatype = True
-                    range_uri = context.get_type_reference(type_name)
-                else:
-                    # Complex type reference
-                    range_uri = context.get_safe_uri(context.base_uri, type_name)
-            else:
-                # Check for inline simple or complex type
-                simple_type = child.find(f".//{XS_NS}simpleType")
-                complex_type = child.find(f".//{XS_NS}complexType")
+            if ref_name:
+                # For referenced elements, find the referenced element definition
+                ref_element = None
+                schema_root = child.getroottree().getroot()
+                ref_elements = schema_root.findall(f".//*[@name='{ref_name}']")
                 
-                if simple_type is not None and complex_type is None:
-                    is_datatype = True
-                    # Get base type from restriction
-                    restriction = simple_type.find(f".//{XS_NS}restriction")
-                    if restriction is not None and restriction.get('base'):
-                        base_type = restriction.get('base')
-                        range_uri = context.get_type_reference(base_type)
-                    else:
-                        range_uri = context.XSD.string
-                elif complex_type is not None:
-                    # Create a class for this complex type if it doesn't exist
-                    class_uri = context.get_safe_uri(context.base_uri, name)
-                    if (class_uri, context.RDF.type, context.OWL.Class) not in context.graph:
-                        context.graph.add((class_uri, context.RDF.type, context.OWL.Class))
-                        context.graph.add((class_uri, context.RDFS.label, rdflib.Literal(name)))
-                    range_uri = class_uri
+                if ref_elements:
+                    ref_element = ref_elements[0]
+                    print(f"DEBUG: Found referenced element {ref_name}")
                 else:
-                    # Default to string if no type information
+                    print(f"DEBUG: Referenced element {ref_name} not found")
+                
+                if ref_element is not None:
+                    # Get type from referenced element
+                    type_name = ref_element.get('type')
+                    is_datatype = False
+                    
+                    if type_name:
+                        # Check if it's a simple type
+                        if ':' in type_name or type_name.startswith("Numeric") or "Decimal" in type_name:
+                            is_datatype = True
+                            range_uri = context.get_type_reference(type_name)
+                        else:
+                            # Complex type reference
+                            range_uri = context.get_safe_uri(context.base_uri, type_name)
+                    else:
+                        # Check for inline simple or complex type
+                        simple_type = ref_element.find(f".//{XS_NS}simpleType")
+                        complex_type = ref_element.find(f".//{XS_NS}complexType")
+                        
+                        if simple_type is not None and complex_type is None:
+                            is_datatype = True
+                            # Get base type from restriction
+                            restriction = simple_type.find(f".//{XS_NS}restriction")
+                            if restriction is not None and restriction.get('base'):
+                                base_type = restriction.get('base')
+                                range_uri = context.get_type_reference(base_type)
+                            else:
+                                range_uri = context.XSD.string
+                        elif complex_type is not None:
+                            # Create a class for this complex type if it doesn't exist
+                            class_uri = context.get_safe_uri(context.base_uri, ref_name)
+                            if (class_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                                context.graph.add((class_uri, context.RDF.type, context.OWL.Class))
+                                context.graph.add((class_uri, context.RDFS.label, rdflib.Literal(ref_name)))
+                            range_uri = class_uri
+                        else:
+                            # Default to string if no type information
+                            is_datatype = True
+                            range_uri = context.XSD.string
+                else:
+                    # Default to string if referenced element not found
                     is_datatype = True
                     range_uri = context.XSD.string
+            else:
+                # For named elements, use the type attribute
+                type_name = child.get('type')
+                is_datatype = False
+                
+                if type_name:
+                    # Check if it's a simple type
+                    if ':' in type_name or type_name.startswith("Numeric") or "Decimal" in type_name:
+                        is_datatype = True
+                        range_uri = context.get_type_reference(type_name)
+                    else:
+                        # Complex type reference
+                        range_uri = context.get_safe_uri(context.base_uri, type_name)
+                else:
+                    # Check for inline simple or complex type
+                    simple_type = child.find(f".//{XS_NS}simpleType")
+                    complex_type = child.find(f".//{XS_NS}complexType")
+                    
+                    if simple_type is not None and complex_type is None:
+                        is_datatype = True
+                        # Get base type from restriction
+                        restriction = simple_type.find(f".//{XS_NS}restriction")
+                        if restriction is not None and restriction.get('base'):
+                            base_type = restriction.get('base')
+                            range_uri = context.get_type_reference(base_type)
+                        else:
+                            range_uri = context.XSD.string
+                    elif complex_type is not None:
+                        # Create a class for this complex type if it doesn't exist
+                        class_uri = context.get_safe_uri(context.base_uri, name)
+                        if (class_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                            context.graph.add((class_uri, context.RDF.type, context.OWL.Class))
+                            context.graph.add((class_uri, context.RDFS.label, rdflib.Literal(name)))
+                        range_uri = class_uri
+                    else:
+                        # Default to string if no type information
+                        is_datatype = True
+                        range_uri = context.XSD.string
             
             # Create property
             if is_datatype:
@@ -1669,7 +1733,8 @@ class ChoiceElementPropertyRule(XSDVisitor):
             else:
                 context.graph.add((property_uri, context.RDF.type, context.OWL.ObjectProperty))
                 
-            context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(name))))
+            element_name = name if name else ref_name
+            context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(element_name))))
             set_property_domain(context, property_uri, parent_element)
             context.graph.add((property_uri, context.RDFS.range, range_uri))
             
@@ -1682,11 +1747,38 @@ class ChoiceElementPropertyRule(XSDVisitor):
             doc = get_documentation(child)
             if doc:
                 context.graph.add((property_uri, context.SKOS.definition, rdflib.Literal(doc)))
+            
+            # Store reference in CHOICE_ELEMENT_REFS for domain fixing
+            if ref_name:
+                # Get parent element name
+                parent_name = None
+                if parent_element.tag == f"{XS_NS}element" and parent_element.get('name'):
+                    parent_name = parent_element.get('name')
+                elif parent_element.getparent() is not None and parent_element.getparent().tag == f"{XS_NS}element" and parent_element.getparent().get('name'):
+                    parent_name = parent_element.getparent().get('name')
+                
+                if parent_name:
+                    parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                    
+                    # Store both the original element name and the lowercase property name
+                    CHOICE_ELEMENT_REFS[ref_name] = {
+                        'parent_name': parent_name,
+                        'parent_uri': str(parent_uri)
+                    }
+                    
+                    property_name = lower_case_initial(ref_name)
+                    CHOICE_ELEMENT_REFS[property_name] = {
+                        'parent_name': parent_name,
+                        'parent_uri': str(parent_uri)
+                    }
+                    
+                    print(f"DEBUG: Stored reference for element {ref_name} and property {property_name} with parent {parent_name}")
                 
             # Mark the child element as processed
             context.mark_processed(child, "simple_type_property")
             context.mark_processed(child, "complex_type_reference")
             context.mark_processed(child, "inline_simple_type_property")
+            context.mark_processed(child, "element_reference")
         
         # Create OWL constraints to ensure exactly one property is used
         if len(property_uris) > 1:
