@@ -753,6 +753,30 @@ class ElementReferenceRule(XSDVisitor):
             ref_name = element.get('ref')
             print(f"DEBUG: ElementReferenceRule.matches: Found element with ref='{ref_name}'")
             
+            # Special debug for IncotermCode
+            if ref_name == "IncotermCode":
+                print(f"DEBUG: FOUND INCOTERMCODE ELEMENT!")
+                print(f"DEBUG: Element parent tag: {element.getparent().tag if element.getparent() is not None else 'None'}")
+                print(f"DEBUG: Element attributes: {element.attrib}")
+                
+                # Print the parent hierarchy
+                parent = element.getparent()
+                hierarchy = []
+                while parent is not None:
+                    if parent.tag == f"{XS_NS}element" and parent.get('name'):
+                        hierarchy.append(f"element:{parent.get('name')}")
+                    elif parent.tag == f"{XS_NS}choice":
+                        hierarchy.append("choice")
+                    elif parent.tag == f"{XS_NS}complexType":
+                        hierarchy.append("complexType")
+                    elif parent.tag == f"{XS_NS}sequence":
+                        hierarchy.append("sequence")
+                    else:
+                        hierarchy.append(parent.tag)
+                    parent = parent.getparent()
+                
+                print(f"DEBUG: Parent hierarchy for IncotermCode: {' -> '.join(reversed(hierarchy))}")
+            
             # Check if it's inside a choice element
             if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
                 print(f"DEBUG: ElementReferenceRule.matches: Element {ref_name} is inside a choice element")
@@ -898,6 +922,11 @@ class ElementReferenceRule(XSDVisitor):
         # Get the referenced element name
         ref_name = element.get('ref')
         print(f"DEBUG: ElementReferenceRule.transform: Processing element with ref='{ref_name}'")
+        
+        # Special debug for IncotermCode
+        if ref_name == "IncotermCode":
+            print(f"DEBUG: TRANSFORMING INCOTERMCODE ELEMENT!")
+            print(f"DEBUG: Element parent tag: {element.getparent().tag if element.getparent() is not None else 'None'}")
         
         # Find the referenced element definition
         ref_element = self._find_referenced_element(element, context)
