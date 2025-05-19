@@ -13,6 +13,10 @@ from xsd_to_owl.utils import logging
 # Constants
 XS_NS = "{http://www.w3.org/2001/XMLSchema}"
 
+# Dictionary to store element references inside choice elements
+# This will be used to set domains for properties that don't have them
+CHOICE_ELEMENT_REFS = {}
+
 
 class SimpleTypePropertyRule(XSDVisitor):
     """
@@ -814,24 +818,46 @@ class ElementReferenceRule(XSDVisitor):
         
         # Find the parent of the choice element (which should be a complexType)
         complex_type_parent = choice_element.getparent()
+        print(f"DEBUG: Parent of choice element: {complex_type_parent.tag if complex_type_parent is not None else 'None'}")
+        
         if complex_type_parent is not None and complex_type_parent.tag == f"{XS_NS}complexType":
             # Find the parent of the complexType (which should be an element)
             element_parent = complex_type_parent.getparent()
+            print(f"DEBUG: Parent of complexType: {element_parent.tag if element_parent is not None else 'None'}")
+            
             if element_parent is not None and element_parent.tag == f"{XS_NS}element" and element_parent.get('name'):
                 parent_name = element_parent.get('name')
                 parent_uri = context.get_safe_uri(context.base_uri, parent_name)
                 print(f"DEBUG: Found parent element {parent_name} for choice containing {ref_name}")
                 
+                # Store the reference in the global dictionary
+                property_name = lower_case_initial(ref_name)
+                CHOICE_ELEMENT_REFS[property_name] = {
+                    'parent_name': parent_name,
+                    'parent_uri': str(parent_uri)
+                }
+                print(f"DEBUG: Stored reference for {property_name} with parent {parent_name}")
+                
                 # Ensure the parent class exists
                 if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                    print(f"DEBUG: Creating class for parent {parent_name}")
                     context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
                     context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
                 
                 # Set the domain directly
+                print(f"DEBUG: Setting domain for {ref_name} to {parent_name}")
                 context.graph.add((property_uri, context.RDFS.domain, parent_uri))
+                
+                # Verify the domain was set
+                if (property_uri, context.RDFS.domain, parent_uri) in context.graph:
+                    print(f"DEBUG: Domain successfully set for {ref_name}")
+                else:
+                    print(f"DEBUG: Failed to set domain for {ref_name}")
+                
                 return True
         
         # If we couldn't find a direct parent, try the normal approach with the choice element
+        print(f"DEBUG: Falling back to normal domain setting for {ref_name}")
         set_property_domain(context, property_uri, choice_element)
         return False
 
@@ -1706,6 +1732,32 @@ class DomainFixerRule(XSDVisitor):
                     if (property_uri, context.RDFS.domain, parent_uri) not in context.graph:
                         context.graph.add((property_uri, context.RDFS.domain, parent_uri))
                         domains_added += 1
+        
+        # Process properties from CHOICE_ELEMENT_REFS
+        if CHOICE_ELEMENT_REFS:
+            print(f"Processing {len(CHOICE_ELEMENT_REFS)} properties from choice elements")
+            
+            # Find all properties without domains
+            for s, p, o in context.graph.triples((None, context.RDF.type, context.OWL.DatatypeProperty)):
+                # Check if property has a domain
+                if (s, context.RDFS.domain, None) not in context.graph:
+                    # Get property name
+                    property_name = str(s).split('#')[-1]
+                    
+                    # Check if we have information about this property in CHOICE_ELEMENT_REFS
+                    if property_name in CHOICE_ELEMENT_REFS:
+                        parent_info = CHOICE_ELEMENT_REFS[property_name]
+                        parent_uri = URIRef(parent_info['parent_uri'])
+                        
+                        # Ensure the parent class exists
+                        if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                            context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                            context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_info['parent_name'])))
+                        
+                        # Set the domain
+                        context.graph.add((s, context.RDFS.domain, parent_uri))
+                        domains_added += 1
+                        print(f"Added domain {parent_info['parent_name']} to property {property_name}")
 
         print(f"Domain fixer added {domains_added} direct domains and {union_domains_created} union domains")
         return None
