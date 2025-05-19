@@ -2037,9 +2037,39 @@ class PropertyTypeFixerRule(XSDVisitor):
                 
         if not problematic_properties:
             print("No properties with inconsistent types found")
-            return None
+        else:
+            print(f"Found {len(problematic_properties)} properties with inconsistent types")
+        
+        # Check for properties with multiple XSD ranges
+        properties_with_multiple_ranges = []
+        for s in context.graph.subjects(context.RDF.type, context.OWL.DatatypeProperty):
+            ranges = []
+            for _, _, range_o in context.graph.triples((s, context.RDFS.range, None)):
+                if str(range_o).startswith(str(context.XSD)):
+                    ranges.append(range_o)
             
-        print(f"Found {len(problematic_properties)} properties with inconsistent types")
+            if len(ranges) > 1:
+                properties_with_multiple_ranges.append((s, ranges))
+        
+        if properties_with_multiple_ranges:
+            print(f"Found {len(properties_with_multiple_ranges)} properties with multiple XSD ranges")
+            
+            for s, ranges in properties_with_multiple_ranges:
+                # Get property name
+                property_name = None
+                for _, _, label_o in context.graph.triples((s, context.RDFS.label, None)):
+                    property_name = str(label_o)
+                    break
+                
+                if not property_name:
+                    continue
+                    
+                print(f"  Property {property_name} has multiple XSD ranges: {', '.join(str(r) for r in ranges)}")
+                
+                # Keep only xsd:string if both xsd:string and xsd:token are present
+                if context.XSD.string in ranges and context.XSD.token in ranges:
+                    print(f"  Removing xsd:token range from {property_name} (keeping xsd:string)")
+                    context.graph.remove((s, context.RDFS.range, context.XSD.token))
         
         for s in problematic_properties:
             # Get property name
