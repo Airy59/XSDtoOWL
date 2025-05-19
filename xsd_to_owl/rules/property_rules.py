@@ -795,42 +795,50 @@ class ElementReferenceRule(XSDVisitor):
             # Default to complex if we can't determine
             return "complex"
 
+    def _handle_element_in_choice(self, element, property_uri, context):
+        """
+        Handle domain assignment for elements inside choice elements.
+        This is a general solution for all element references inside choice elements.
+        
+        Args:
+            element: The element being processed
+            property_uri: The URI of the property being created
+            context: The transformation context
+            
+        Returns:
+            bool: True if domain was set, False otherwise
+        """
+        choice_element = element.getparent()
+        ref_name = element.get('ref')
+        print(f"DEBUG: Element {ref_name} is inside a choice element")
+        
+        # Find the parent of the choice element (which should be a complexType)
+        complex_type_parent = choice_element.getparent()
+        if complex_type_parent is not None and complex_type_parent.tag == f"{XS_NS}complexType":
+            # Find the parent of the complexType (which should be an element)
+            element_parent = complex_type_parent.getparent()
+            if element_parent is not None and element_parent.tag == f"{XS_NS}element" and element_parent.get('name'):
+                parent_name = element_parent.get('name')
+                parent_uri = context.get_safe_uri(context.base_uri, parent_name)
+                print(f"DEBUG: Found parent element {parent_name} for choice containing {ref_name}")
+                
+                # Ensure the parent class exists
+                if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
+                    context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
+                    context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
+                
+                # Set the domain directly
+                context.graph.add((property_uri, context.RDFS.domain, parent_uri))
+                return True
+        
+        # If we couldn't find a direct parent, try the normal approach with the choice element
+        set_property_domain(context, property_uri, choice_element)
+        return False
+
     def transform(self, element, context):
         # Get the referenced element name
         ref_name = element.get('ref')
         
-        # Special case for IncotermCode
-        if ref_name == "IncotermCode":
-            print(f"DEBUG: Special handling for IncotermCode element")
-            # Create data property
-            property_uri = context.get_safe_uri(context.base_uri, ref_name, is_property=True)
-            context.graph.add((property_uri, context.RDF.type, context.OWL.DatatypeProperty))
-            
-            # Find the PrepaymentCustomer class
-            parent_uri = context.get_safe_uri(context.base_uri, "PrepaymentCustomer")
-            
-            # Ensure the parent class exists
-            if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
-                context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
-                context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal("PrepaymentCustomer")))
-            
-            # Set the domain directly
-            context.graph.add((property_uri, context.RDFS.domain, parent_uri))
-            
-            # Set the range to token
-            context.graph.add((property_uri, context.RDFS.range, context.XSD.token))
-            
-            # Add label
-            context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(ref_name))))
-            
-            # Add functional property
-            context.graph.add((property_uri, context.RDF.type, context.OWL.FunctionalProperty))
-            
-            # Mark as processed
-            context.mark_processed(element, self.rule_id)
-            
-            return property_uri
-
         # Find the referenced element definition
         ref_element = self._find_referenced_element(element, context)
         if not ref_element:
@@ -848,31 +856,24 @@ class ElementReferenceRule(XSDVisitor):
             
             # Special handling for elements inside choice
             if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
-                # For elements inside choice, we need to find the containing element
-                choice_element = element.getparent()
-                print(f"DEBUG: Element {ref_name} is inside a choice element")
-                
-                # Find the parent of the choice element (which should be a complexType)
-                complex_type_parent = choice_element.getparent()
-                if complex_type_parent is not None and complex_type_parent.tag == f"{XS_NS}complexType":
-                    # Find the parent of the complexType (which should be an element)
-                    element_parent = complex_type_parent.getparent()
-                    if element_parent is not None and element_parent.tag == f"{XS_NS}element" and element_parent.get('name'):
-                        parent_name = element_parent.get('name')
-                        parent_uri = context.get_safe_uri(context.base_uri, parent_name)
-                        print(f"DEBUG: Found parent element {parent_name} for choice containing {ref_name}")
-                        
-                        # Ensure the parent class exists
-                        if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
-                            context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
-                            context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
-                        
-                        # Set the domain directly
-                        context.graph.add((property_uri, context.RDFS.domain, parent_uri))
-                        return
-                
-                # If we couldn't find a direct parent, try the normal approach with the choice element
-                set_property_domain(context, property_uri, choice_element)
+                domain_set = self._handle_element_in_choice(element, property_uri, context)
+                if domain_set:
+                    # If domain was set by _handle_element_in_choice, we can skip the rest of the property creation
+                    # and just add the range
+                    context.graph.add((property_uri, context.RDFS.range, range_uri))
+                    
+                    # Add label
+                    context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(ref_name))))
+                    
+                    # Add functional property if appropriate
+                    from xsd_to_owl.auxiliary.xsd_parsers import is_functional
+                    if is_functional(element):
+                        context.graph.add((property_uri, context.RDF.type, context.OWL.FunctionalProperty))
+                    
+                    # Mark as processed
+                    context.mark_processed(element, self.rule_id)
+                    
+                    return property_uri
             else:
                 # Normal domain setting
                 set_property_domain(context, property_uri, element)
@@ -912,31 +913,24 @@ class ElementReferenceRule(XSDVisitor):
             
             # Special handling for elements inside choice
             if element.getparent() is not None and element.getparent().tag == f"{XS_NS}choice":
-                # For elements inside choice, we need to find the containing element
-                choice_element = element.getparent()
-                print(f"DEBUG: Element {ref_name} is inside a choice element")
-                
-                # Find the parent of the choice element (which should be a complexType)
-                complex_type_parent = choice_element.getparent()
-                if complex_type_parent is not None and complex_type_parent.tag == f"{XS_NS}complexType":
-                    # Find the parent of the complexType (which should be an element)
-                    element_parent = complex_type_parent.getparent()
-                    if element_parent is not None and element_parent.tag == f"{XS_NS}element" and element_parent.get('name'):
-                        parent_name = element_parent.get('name')
-                        parent_uri = context.get_safe_uri(context.base_uri, parent_name)
-                        print(f"DEBUG: Found parent element {parent_name} for choice containing {ref_name}")
-                        
-                        # Ensure the parent class exists
-                        if (parent_uri, context.RDF.type, context.OWL.Class) not in context.graph:
-                            context.graph.add((parent_uri, context.RDF.type, context.OWL.Class))
-                            context.graph.add((parent_uri, context.RDFS.label, rdflib.Literal(parent_name)))
-                        
-                        # Set the domain directly
-                        context.graph.add((property_uri, context.RDFS.domain, parent_uri))
-                        return
-                
-                # If we couldn't find a direct parent, try the normal approach with the choice element
-                set_property_domain(context, property_uri, choice_element)
+                domain_set = self._handle_element_in_choice(element, property_uri, context)
+                if domain_set:
+                    # If domain was set by _handle_element_in_choice, we can skip the rest of the property creation
+                    # and just add the range
+                    context.graph.add((property_uri, context.RDFS.range, class_uri))
+                    
+                    # Add label
+                    context.graph.add((property_uri, context.RDFS.label, rdflib.Literal(lower_case_initial(ref_name))))
+                    
+                    # Add functional property if appropriate
+                    from xsd_to_owl.auxiliary.xsd_parsers import is_functional
+                    if is_functional(element):
+                        context.graph.add((property_uri, context.RDF.type, context.OWL.FunctionalProperty))
+                    
+                    # Mark as processed
+                    context.mark_processed(element, self.rule_id)
+                    
+                    return property_uri
             else:
                 # Normal domain setting
                 set_property_domain(context, property_uri, element)
