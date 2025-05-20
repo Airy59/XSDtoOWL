@@ -33,13 +33,15 @@ XSD files: depending on source.
 
 # Status
 
-As of May 18, 2025:
+As of May 20, 2025:
 
-* the rule-based transformation basically works.
-* the set of rules is not complete.
-  * multiplicities are not transformed yet (except 0..1 that translates to owl:FunctionalProperty); generation of SHACL shapes should be envisaged here;
-  * some XSD terms (such as xs:choice) are not taken into account,
-* no user interface is yet available to select rules or groups of rules. Such tuning currently implies editing a .py file.
+* the rule-based XSD to OWL transformation basically works.
+  * the set of rules is not complete.
+    * multiplicities are not transformed yet (except 0..1 that translates to owl:FunctionalProperty); generation of SHACL shapes should be envisaged here.
+  * simple user interface (pre-defined terminal prompts)
+* the XML to RDF transformation entirely rests on the correspondence between the XSD and the OWL ontology generated from the XSD.
+  * extensive tests pending
+  * user-defined transformation rules are foreseen but not implemented.
 
 # Usage
 
@@ -202,8 +204,9 @@ Contributions are welcome! Here are some ways you can contribute to the project:
 2. Submit pull requests with bug fixes or new features
 3. Improve documentation
 4. Create additional transformation rules for specialized XSD constructs
+5. Provide sample XSDs and sample data for testing, especially "borderline cases".
 
 # License
 
 Code: EUPL 1.2
-XSD files: depending on source.
+XSD and XML files: depending on source.
