@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taf:TAFData xmlns:taf="http://www.era.europa.eu/schemes/TAFTSI/3.5">
+  <!-- Example of AirBrakeType enumeration -->
+  <taf:AirBrakeType>3</taf:AirBrakeType>
+  
+  <!-- Example of BrakeSpecialCharacteristics enumeration -->
+  <taf:BrakeSpecialCharacteristics>1</taf:BrakeSpecialCharacteristics>
+  
+  <!-- Example of BrakeType enumeration -->
+  <taf:BrakeType>0</taf:BrakeType>
+  
+  <!-- Example of BrakingPowerVariationDevice enumeration -->
+  <taf:BrakingPowerVariationDevice>1</taf:BrakingPowerVariationDevice>
+  
+  <!-- Example of CodeOfCause enumeration -->
+  <taf:CodeOfCause>3</taf:CodeOfCause>
+  
+  <!-- Example of CombinedTrafficLoadProfile complex type -->
+  <taf:CombinedTrafficLoadProfile>
+    <taf:P1>123</taf:P1>
+    <taf:P2>456</taf:P2>
+    <taf:C1>789</taf:C1>
+    <taf:C2>012</taf:C2>
+  </taf:CombinedTrafficLoadProfile>
+  
+  <!-- Example of ConsignmentOrderType enumeration -->
+  <taf:ConsignmentOrderType>ECN</taf:ConsignmentOrderType>
+  
+  <!-- Example of ConsignorDeclarationCode enumeration -->
+  <taf:ConsignorDeclarationCode>5</taf:ConsignorDeclarationCode>
+</taf:TAFData>
