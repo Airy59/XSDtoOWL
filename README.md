@@ -1,10 +1,16 @@
 # Purpose
 
-Transpose XSD to RDF/OWL in view of further transformations (OWL to OWL)
+Transpose XSD to RDF/OWL (T-Box) in view of further transformations (OWL to OWL).
+
+Transform XML data to RDF (A-Box) using the matching XSD and RDF/OWL T-Box as input parameters.
 
 # Rationale
 
 XSDs define, as the initialism tells, schemas, i.e. document structures, and are not easily mapped to a sensible ontology. Mapping tools can deal with the syntax, not the semantics, with poor results. This is probably the reason why such mapping tools are not easily found. For instance, TopBraid Composer (Maestro Edition) had such capability, but has been phased out. Other dedicated tools have changed focus.
+
+There is at least (and probably at most) one open source project on GitHub that achieves the same goals, namely [Ontmalizer](https://github.com/srdc/ontmalizer), the existence of which I found too late. It uses Java code.
+
+Please note that [RML](https://rml.io/specs/rml/) provides XML-to-RDF transformation, but the mapping rules must be provided by the user, for each particular project. In the present case, the mapping rules are provided by the software and apply at model level.
 
 # Methodology
 
