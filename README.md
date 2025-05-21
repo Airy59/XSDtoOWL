@@ -33,6 +33,7 @@ By contrast, our proposed solution is designed for cases where the target ontolo
 # License
 
 Code: EUPL 1.2
+
 XSD files: depending on source.
 
 # Status
