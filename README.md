@@ -26,7 +26,7 @@ Given the small size of XSDs and small number of variants to be transformed, exe
 
 In this situation, none of the more exotic tools showed decisive advantages over Python, not even conciseness (Python has great libraries, which helps), so we sticked with Python.
 ## What about RML?
-[RML](https://rml.io/) allows to map XML data to RDF data via a graph that must be composed "manually". It is well suited to cases where the source XSD and the target ontology already exist.
+[RML](https://rml.io/) allows to map XML data to RDF data by means of a transformation graph that must be composed "manually". It is well suited to cases where the source XSD and the target ontology already exist.
 
 By contrast, our proposed solution is designed for cases where the target ontology does not exist, or needs considerable extensions. In such case, the target ontology is derived from the source XSD, and data transformation can follow. Both model and data transformation can be automated.
 
