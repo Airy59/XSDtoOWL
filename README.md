@@ -213,7 +213,8 @@ Contributions are welcome! Here are some ways you can contribute to the project:
 4. Create additional transformation rules for specialized XSD constructs
 5. Provide sample XSDs and sample data for testing, especially "borderline cases".
 
-# License
+# Credits
+The software relies on several Python libraries, especially: rdflib, networkx, click, and lxml. See also requirements.txt.
 
 Code: EUPL 1.2
 XSD and XML files: depending on source.
