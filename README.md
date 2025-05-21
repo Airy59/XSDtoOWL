@@ -17,7 +17,7 @@ Please note that [RML](https://rml.io/specs/rml/) provides XML-to-RDF transforma
 Transformation shall be deterministic, based on rules that can be activated and de-activated (user setting).
 
 # Means
-
+## Existing solutions?
 Transformation could be indirect, e.g. over UML (using XSD to UML mapping provided by Enterprise Architect or similar tools, then UML to OWL). Here, we chose to avoid such indirections, although the possibility of editing the resulting class diagram to make it look more like a conceptual model was appealing. The downside is, transformation would no longer be deterministic.
 
 We experimented with different tools, such as XSLT, Python (with libraries), SWI PROLOG... (not all are documented here).
@@ -25,6 +25,10 @@ We experimented with different tools, such as XSLT, Python (with libraries), SWI
 Given the small size of XSDs and small number of variants to be transformed, execution time or memory footprint are not of concern.
 
 In this situation, none of the more exotic tools showed decisive advantages over Python, not even conciseness (Python has great libraries, which helps), so we sticked with Python.
+## What about RML?
+[RML](https://rml.io/) allows to map XML data to RDF data via a graph that must be composed "manually". It is well suited to cases where the source XSD and the target ontology already exist.
+
+By contrast, our proposed solution is designed for cases where the target ontology does not exist, or needs considerable extensions. In such case, the target ontology is derived from the source XSD, and data transformation can follow. Both model and data transformation can be automated.
 
 # License
 
