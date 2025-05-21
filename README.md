@@ -215,6 +215,3 @@ Contributions are welcome! Here are some ways you can contribute to the project:
 
 # Credits
 The software relies on several Python libraries, especially: rdflib, networkx, click, and lxml. See also requirements.txt.
-
-Code: EUPL 1.2
-XSD and XML files: depending on source.
