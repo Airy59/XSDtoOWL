@@ -30,6 +30,8 @@ In this situation, none of the more exotic tools showed decisive advantages over
 
 By contrast, our proposed solution is designed for cases where the target ontology does not exist, or needs considerable extensions. In such case, the target ontology is derived from the source XSD, and data transformation can follow. Both model and data transformation can be automated.
 
+Please note that RML can handle multiple source formats, either tabular (CSV...) or hierarchical (XML, JSON...): accordingly, RML code is designed at a higher abstraction level, using entities such as "reference extractor" or "iterator", the implementation of which depends on the source data format.
+
 For more insight about RML, see [Extending Semantic RML Mappings with Additional Source Formats, J. Theissen-Lipp & al., 2024](https://www.wzl.rwth-aachen.de/cms/wzl/forschung/forschungsumfeld/veroeffentlichungen/~siht/details/?file=1006849&lidx=1).
 
 # License
